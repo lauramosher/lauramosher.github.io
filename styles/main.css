@@ -85,6 +85,7 @@ aside {
   top: 0;
   left: 0;
   height: 100%;
+  overflow: scroll;
 }
 aside nav a {
   display: block;
