@@ -1,0 +1,101 @@
+header img {
+  max-width: 300px;
+  margin-bottom: 10px;
+}
+body {
+  margin: 0;
+  font-family: "Helvetica","Arial",sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+}
+h1, h2, h3, h4, h5, h6 {
+  display: block;
+  color: #151515;
+}
+a,
+a:visited{
+  text-decoration: none;
+  color: #0088CC;
+}
+main {
+  background-color: #dfdfdf;
+  position: relative;
+  margin-left: 300px;
+  margin-top: 60px;
+  padding-bottom: 40px;
+  height: calc(100vh - 100px);
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+main > section {
+  padding-top: 10px;
+}
+main > section {
+  margin: 0 150px;
+}
+main > section > h1 + p,
+main > section > h1 + article {
+  border: 1px solid gray;
+  box-shadow: 1px 1px 10px gray;
+  box-sizing: border-box;
+  padding: 10px;
+  background-color: white;
+}
+header.top-nav {
+  background-color: #efefef;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+  width: calc(100% - 400px);
+  padding: 20px 50px;
+  position: fixed;
+  top: 0;
+}
+article.post h3 {
+  text-transform: uppercase;
+}
+.meta {
+  font-size: 0.75rem;
+}
+.contact {
+  display: grid;
+  justify-content: end;
+  grid-template-columns: auto auto auto auto;
+}
+.contact-card {
+  justify-self: end;
+  margin-left: 5px;
+}
+.contact-card + .contact-card::before {
+  content: " \2022 ";
+}
+.card, .post {
+  border: 1px solid gray;
+  box-shadow: 1px 1px 10px gray;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 1em 0;
+  background-color: white;
+}
+.card span {
+  float: right;
+}
+aside {
+  background-color: #151515;
+  width: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+aside nav a {
+  display: block;
+  width: 300px;
+  padding: 10px 50px;
+}
+.logo {
+  max-width: 260px;
+  margin: 20px 30px;
+}
+.profile {
+  max-width: 200px;
+  margin: 0 50px;
+}
