@@ -48,9 +48,9 @@ header {
 }
 
 .header {
-  height: 75px;
   display: block;
   padding-top: 175px;
+  margin-bottom: 1em;
 }
 
 .avatar {
