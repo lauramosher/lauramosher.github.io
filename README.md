@@ -1,5 +1,5 @@
-# [Laura Mosher](lauramosher.github.io)
-[lauramosher.com](lauramosher.com) // [laura@lauramosher.com](laura@lauramosher.com)
+# [Laura Mosher](https://lauramosher.github.io)
+[lauramosher.com](http://lauramosher.com) // [laura@lauramosher.com](mailto:laura@lauramosher.com)
 
 <ul>
   <li>I live in the great hand of Michigan.</li>
