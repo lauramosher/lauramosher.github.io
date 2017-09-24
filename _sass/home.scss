@@ -1,0 +1,108 @@
+.home {
+  margin: 50px auto;
+
+  header {
+    margin-top: 200px;
+    text-align: center;
+    line-height: 18px;
+  }
+
+  ul {
+    margin: 0;
+    padding: 1em;
+  }
+
+  li {
+    list-style-type: none;
+    padding: 0.5em;
+  }
+
+  .header {
+    display: block;
+    padding-top: 175px;
+    margin-bottom: 1em;
+  }
+
+  .avatar {
+    height: 150px;
+    width: 300px;
+    margin: -130px 0 0 290px;
+    overflow: visible;
+    position: absolute;
+  }
+
+  .profile {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+  }
+
+  @media only screen and (max-width: 880px) {
+    body {
+      background: #ffffff;
+    }
+
+    main {
+      background: #ffffff;
+      width: inherit;
+      margin: 15px 0;
+    }
+
+    header {
+      text-align: center;
+      margin-top: 0;
+      height: inherit;
+    }
+
+    .header {
+      height: inherit;
+      display: block;
+      padding: 0;
+    }
+
+    .avatar {
+      width: 300px;
+      height: inherit;
+      margin: 0 auto;
+      display: block;
+      position: initial;
+    }
+
+    .profile {
+      width: inherit;
+      height: inherit;
+    }
+
+    nav {
+      flex-direction: column;
+      align-items: stretch;
+      height: inherit;
+      padding-top: 0;
+      border-bottom: 0;
+    }
+
+    nav > a {
+      flex-grow: 1;
+      align-items: stretch;
+      padding: 10px 0;
+      border-bottom: 0;
+    }
+
+    nav > a:hover {
+      color: #e9e9e9;
+      background-color: #ed6200;
+    }
+  }
+
+  @media only screen and (max-width: 480px) {
+    .avatar {
+      width: 100%;
+    }
+
+    .profile {
+      border: 0;
+      border-radius: 0;
+    }
+  }
+}

@@ -1,60 +1,38 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Laura Mosher // Senior Software Engineer // Full-Stack Developer</title>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-39335565-1', 'auto');
-      ga('send', 'pageview');
-    </script>
-    <link rel="stylesheet" media="all" href="styles/main.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Laura is a full-stack senior software engineer with a passion for clean code and oxford commas.">
-    <meta name="twitter:description" content="Laura is a full-stack senior software engineer with a passion for clean code and oxford commas.">
-    <meta name="keywords" content="Software Development, Software Engineering, Holland, Zeeland, Grand Rapids, Michigan, Ruby, Ruby on Rails, Elixir, Full-Stack, Code, Writer, Laura, Laura Mosher, Laura J Trevisan Mosher">
-    <meta name="twitter:image" content="http://lauramosher.com/images/profile.jpg">
-    <meta name="twitter:site" content="@LauraTrev">
-    <meta name="twitter:domain" content="lauramosher.com">
-  </head>
-  <body>
-    <main>
-      <header class="top-nav">
-        <section class="avatar">
-          <img class="profile" src="images/profile.jpg" alt="Laura Mosher" title="Laura Mosher" />
-        </section>
-        <section class="header">
-          <h1>Laura J Trevisan Mosher</h1>
-          <div>Senior Software Engineer // Full-Stack Developer</div>
-        </section>
-        <section>
-          <nav>
-            <a href="downloads/lauramosher.pdf" target="_blank">Resume</a>
-            <a href="http://github.com/lauramosher">GitHub</a>
-            <a href="http://twitter.com/LauraTrev">Twitter</a>
-            <a href="mailto:laura@lauramosher.com">Contact</a>
-          </nav>
-        </section>
-      </header>
+---
+layout: home
+---
 
-      <section>
-        <ul>
-          <li>I live in the great hand of Michigan.</li>
-          <li>I have a wonderful <a href="https://michaelmosher.github.io/">husband</a>, and I adopted a prickle floof hedgehog.</li>
-          <li>I like board games. I host board game nights whenever I get the chance.</li>
-          <li>I kicked Calamity Ganon's butt.</li>
-          <li>I read books. A lot of books.</li>
-          <li>I organize my library using the dewey decimal system.</li>
-          <li>I founded <a href="https://squareup.com/market/the-hook-look-llc">The Hook Look, LLC</a>, a hobbyist shop showcasing things I make.</li>
-          <li>I write <a href="https://github.com/lauramosher/">code</a>, primarily in Ruby and Ruby on Rails.</li>
-          <li>I love learning additional languages; currently, I am learning Elixir and Phoenix.</li>
-          <li>I occasionally will <a href="https://collectiveidea.com/blog/author/laura-mosher">write</a> about code, work, and culture.</li>
-          <li>I work with awesome people at <a href="https://collectiveidea.com">Collective Idea</a>.</li>
-          <li>I am an oxford comma lover.</li>
-        </ul>
-      </section>
-    </main>
-  </body>
-</html>
+<main class="home">
+  <header>
+    <section class="avatar">
+      <img class="profile" src="{{site.url}}/images/profile.jpg" alt="Laura Mosher" title="Laura Mosher" /> </section>
+    <section class="header">
+      <h1>Laura J Trevisan Mosher</h1>
+      <div>Senior Software Engineer // Full-Stack Developer</div>
+    </section>
+    <section>
+      <nav>
+        <a href="{{ site.url }}/blog">Blog</a>
+        <a href="downloads/lauramosher.pdf" target="_blank">Resume</a>
+        <a href="/connect">Connect</a>
+      </nav>
+    </section>
+  </header>
+
+  <section>
+    <ul>
+      <li>I live in the great hand of Michigan.</li>
+      <li>I have a wonderful <a href="https://michaelmosher.github.io/">husband</a>, and I adopted a prickle floof hedgehog.</li>
+      <li>I like board games. I host board game nights whenever I get the chance.</li>
+      <li>I kicked Calamity Ganon's butt.</li>
+      <li>I read books. A lot of books.</li>
+      <li>I organize my library using the dewey decimal system.</li>
+      <li>I founded <a href="https://squareup.com/market/the-hook-look-llc">The Hook Look, LLC</a>, a hobbyist shop showcasing things I make.</li>
+      <li>I write code, primarily in Ruby and Ruby on Rails.</li>
+      <li>I love learning additional languages; currently, I am learning Elixir and Phoenix.</li>
+      <li>I occasionally will <a href="/blog">write</a> about code, work, and culture.</li>
+      <li>I work with awesome people at <a href="https://collectiveidea.com">Collective Idea</a>.</li>
+      <li>I am an oxford comma lover.</li>
+    </ul>
+  </section>
+</main>

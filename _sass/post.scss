@@ -1,0 +1,39 @@
+a.button {
+  color: #fff;
+  background: #3d85c6;
+  padding: 5px;
+  border: 1px solid #3d85c6;
+
+  &:hover {
+    background-color: lighten(#3d85c6, 10%);
+  }
+}
+
+.post {
+  .posts & {
+    margin-bottom: 2em;
+  }
+
+  &--meta {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &--category {
+    padding: 3px 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 2px;
+    background-color: #3d85c6;
+    font-size: 0.8em;
+
+    a {
+      color: #FFF;
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: space-between;
+}
