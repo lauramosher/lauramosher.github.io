@@ -1,0 +1,44 @@
+---
+layout: default
+---
+
+<div>
+  <h1>
+    Blog
+    {% if page.autopage %}
+      //
+      {{ page.autopage.display_name }}
+    {% endif %}
+    <br>
+    <small>A compilation of thoughts on God, life, and software.</small>
+  </h1>
+
+  <section class="posts">
+    {% for post in paginator.posts %}
+      <div class="post">
+        {% assign date_format = "%b %d, %Y" %}
+        <span class="post--meta">
+          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+          <span>{{ post.date | date: date_format }}</span>
+        </span>
+        {{ post.excerpt | remove: "<p>" | remove: "</p>" }}
+      </div>
+    {% endfor %}
+  </section>
+
+  <div class="actions">
+    {% if paginator.total_pages > 1 %}
+      <div>
+        {% if paginator.previous_page %}
+          <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="button"><< Newer</a>
+        {% endif %}
+      </div>
+
+      <div>
+        {% if paginator.next_page %}
+          <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="button">Older >></a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</div>
