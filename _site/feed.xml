@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.5.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2017-09-24T16:39:30-04:00</updated><id>http://localhost:4000/</id><title type="html">Laura Mosher // Senior Software Engineer // Full-Stack Developer</title><subtitle>Laura is a full-stack senior software engineer with a passion for clean code and oxford commas.
+</subtitle><entry><title type="html">A Second Look at Success</title><link href="http://localhost:4000/blog/2014/05/10/a-second-look-at-success.html" rel="alternate" type="text/html" title="A Second Look at Success" /><published>2014-05-10T11:15:15-04:00</published><updated>2014-05-10T11:15:15-04:00</updated><id>http://localhost:4000/blog/2014/05/10/a-second-look-at-success</id><content type="html" xml:base="http://localhost:4000/blog/2014/05/10/a-second-look-at-success.html">&lt;p&gt;A while ago, I wrote a blog post on measuring success. In short, I stated that success shouldn’t be measured by the
+worlds standards of money, cars, houses, or prestige; and the by-product, failure, could only be achieved by not trying.&lt;/p&gt;
+
+&lt;p&gt;That was years ago. And while the general premise is still the same, I think I can be a bit more succinct in meaning.&lt;/p&gt;
+
+&lt;p&gt;The worlds picture of success, the one that measures society, is flawed. The world thinks that to be successful you have
+to be on top, the number one in whatever it may be. However, in actuality, you can be successful without being on top.&lt;/p&gt;
+
+&lt;p&gt;Success is a “sliding” scale, so to speak. What success is to me is likely vastly different than what success means to
+you. You may have done something you thought was a great success - but by the world definition was just a pitiful little
+thing in comparison because it didn’t put you higher on the hierarchy.&lt;/p&gt;
+
+&lt;p&gt;Evaluate what you find successful and base your success off of that. The world will emphasize those with the louder
+“voice” and say that is more successful. Remember: Your personal success will be more important that whatever the last
+person did.&lt;/p&gt;</content><author><name></name></author><summary type="html">Success is measured on a sliding scale. You can be successful without being &quot;on top&quot;.</summary></entry><entry><title type="html">Creating a Hash from a Collection</title><link href="http://localhost:4000/blog/code/2014/03/12/creating-a-hash-from-a-collection.html" rel="alternate" type="text/html" title="Creating a Hash from a Collection" /><published>2014-03-12T16:35:45-04:00</published><updated>2014-03-12T16:35:45-04:00</updated><id>http://localhost:4000/blog/code/2014/03/12/creating-a-hash-from-a-collection</id><content type="html" xml:base="http://localhost:4000/blog/code/2014/03/12/creating-a-hash-from-a-collection.html">&lt;p&gt;I recently needed to create a hash lookup from an object using the ID as the lookup key and the full object as the value in our rails app. It wasn’t a difficult concept and there were several ways this could be accomplished; however, we just couldn’t find a way that made sense or didn’t involve looping. That is, until we found &lt;code class=&quot;highlighter-rouge&quot;&gt;index_by&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
+
+&lt;p&gt;Let’s assume we have an &lt;code class=&quot;highlighter-rouge&quot;&gt;Animal&lt;/code&gt; class and an &lt;code class=&quot;highlighter-rouge&quot;&gt;Animals&lt;/code&gt; list class:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Animal&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;attr_reader&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:name&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Animals&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;vi&quot;&gt;@animals&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animals&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;animal_list&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;animals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;each_with_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;attr_reader&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:animals&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;So we’d have a list of animals:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-plaintext&quot; data-lang=&quot;plaintext&quot;&gt;animal_array = ['King Mukla', 'Misha', 'Leokk', 'Huffer']
+animals = Animals.new(animal_array).animal_list
+=&amp;gt; [
+ [0] #&amp;lt;Animal:0x007fde9678e098 @id=0, @name=&quot;King Mukla&quot;&amp;gt;,
+ [1] #&amp;lt;Animal:0x007fde9678e070 @id=1, @name=&quot;Misha&quot;&amp;gt;,
+ [2] #&amp;lt;Animal:0x007fde9678e048 @id=2, @name=&quot;Leokk&quot;&amp;gt;,
+ [3] #&amp;lt;Animal:0x007fde9678e020 @id=3, @name=&quot;Huffer&quot;&amp;gt;
+]&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;using-hasha&quot;&gt;Using Hash[a]&lt;/h2&gt;
+&lt;p&gt;Our first solution took advantage of &lt;code class=&quot;highlighter-rouge&quot;&gt;Hash&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;no&quot;&gt;Hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This was our default approach in conversion in the past, but creating an array of arrays just to use this approach seemed lengthy and unnecessary.&lt;/p&gt;
+
+&lt;h2 id=&quot;using-enumerable-reduce&quot;&gt;Using Enumerable .reduce()&lt;/h2&gt;
+&lt;p&gt;Our second solution took advantage of the reduce method in the Enumerable Class:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;animals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;reduce&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({})&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;
+  &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This is slightly better, since we don’t have to map on the array only to convert; but needing to return the hash at the end isn’t ideal either. Both solutions so far would usually require a doc lookup for .reduce and Hash[a].&lt;/p&gt;
+
+&lt;h2 id=&quot;using-enumerable-index_by&quot;&gt;Using Enumerable .index_by()&lt;/h2&gt;
+
+&lt;p&gt;Our final solution, we used the Enumerable &lt;code class=&quot;highlighter-rouge&quot;&gt;index_by&lt;/code&gt;:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;animals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Note: &lt;code class=&quot;highlighter-rouge&quot;&gt;.index_by&lt;/code&gt; accepts a block. So if you want to index by two fields such as first and last name, you could easily do this with the block:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;people&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index_by&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;first_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;last_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;All three solutions yield the same result; a hash with the keys being the ID of the object:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-plaintext&quot; data-lang=&quot;plaintext&quot;&gt;{
+  0 =&amp;gt; #&amp;lt;Animal:0x007fde935ce530 @id=0, @name=&quot;King Mukla&quot;&amp;gt;,
+  1 =&amp;gt; #&amp;lt;Animal:0x007fde935ce440 @id=1, @name=&quot;Misha&quot;&amp;gt;,
+  2 =&amp;gt; #&amp;lt;Animal:0x007fde935ce418 @id=2, @name=&quot;Leokk&quot;&amp;gt;,
+  3 =&amp;gt; #&amp;lt;Animal:0x007fde935ce3f0 @id=3, @name=&quot;Huffer&quot;&amp;gt;
+}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Learn about Ruby's ability to create hash lookups from Collections.</summary></entry><entry><title type="html">Understanding Depression</title><link href="http://localhost:4000/blog/2012/12/11/understanding-depression.html" rel="alternate" type="text/html" title="Understanding Depression" /><published>2012-12-11T06:15:15-05:00</published><updated>2012-12-11T06:15:15-05:00</updated><id>http://localhost:4000/blog/2012/12/11/understanding-depression</id><content type="html" xml:base="http://localhost:4000/blog/2012/12/11/understanding-depression.html">&lt;p&gt;At the surface, we’ve all experienced some basic depression - feeling of sadness, unhappy at something, miserable, or just plain down. This level of depression is usually a very short period of time and tends to go away if you find a hobby or a friend to cheer you up. Within a week or two, you’ve moved on. There may be a small sadness, but you aren’t necessarily feeling depressed about it anymore. This type of depression is what the average user thinks of when someone says they are depressed, and thus it’s easy to assume that they can just brush it aside since it will simply get better with a little bit of time.&lt;/p&gt;
+
+&lt;p&gt;Below the surface, the feelings of the surface depression are warped and distorted. So now instead of a feeling of sadness, it’s a feeling of constant foreboding. Instead of being miserable, you feel like the world is going to end. Instead of feeling down, you feel like you’re in a deep hole and someone just covered the one light source. People in this stage tend to view the entire world in a negative light.&lt;/p&gt;
+
+&lt;p&gt;Just below the surface, it’s easy to act like nothing is wrong while internally there is a storm brewing. And one that left unchecked will eventually grow until “breaking point” where things that normally make them happy end up looking and sounding terrible; things that normally would be a funny joke are taken like an insult or source of anxiety and feeling of helplessness; things that normally would be a soft reprimand is now a full blown feeling of failure or inability to perform. All of these things only fuel the downward spiral.&lt;/p&gt;
+
+&lt;p&gt;However, the closer someone gets to the bottom of the spiral, the harder it is to function normally - to act like things are OK when they are not. It takes twice as long to do anything.  It takes effort to even eat. Trying to get up out of depression is usually met with frustration (especially those who need medication or someone to help root out the real cause of the depression), because they can’t do it themselves creating a viscous cycle.&lt;/p&gt;
+
+&lt;p&gt;People with this severe of depression have what I’ve called a ghost in their eyes. They see and feel things that we on the outside can’t see. They look, to the average person, normal. But on a closer inspection that isn’t really the case. You’ll notice they aren’t eating, they aren’t getting enough sleep. You’ll notice they have a rasp in their voice and a hard time looking at people in the eye when talking to someone.&lt;/p&gt;
+
+&lt;p&gt;Once depression reaches this point, the previous expectations and experiences with how a person acted are no longer relevant. Their reaction to the things we say or do will be exactly the opposite of what we expect.&lt;/p&gt;</content><author><name></name></author><summary type="html">The spiral of depression is brutal. Take a quick look below the surface of perceived depression.</summary></entry><entry><title type="html">Grand Rapids Give Camp</title><link href="http://localhost:4000/blog/events/2012/11/06/grand-rapids-givecamp.html" rel="alternate" type="text/html" title="Grand Rapids Give Camp" /><published>2012-11-06T15:15:15-05:00</published><updated>2012-11-06T15:15:15-05:00</updated><id>http://localhost:4000/blog/events/2012/11/06/grand-rapids-givecamp</id><content type="html" xml:base="http://localhost:4000/blog/events/2012/11/06/grand-rapids-givecamp.html">&lt;p&gt;It’s been nearly two weeks since I volunteered my time at this year’s GR Give Camp and this post has been long time in coming. I’d say it’s about time for some reflections.&lt;/p&gt;
+
+&lt;h2 id=&quot;background&quot;&gt;Background&lt;/h2&gt;
+
+&lt;p&gt;For those of you who don’t know what Give Camp is, it can be summed up in the following few points (using this years numbers):&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;18 non profits.&lt;/li&gt;
+  &lt;li&gt;A room full of tech geeks.&lt;/li&gt;
+  &lt;li&gt;1 weekend.&lt;/li&gt;
+  &lt;li&gt;Expertise of tech geeks ranging from Drupal and Wordpress to .NET and Ruby on Rails.&lt;/li&gt;
+  &lt;li&gt;Those tech geeks providing technical know-how to non-profits in direct relation to problem.&lt;/li&gt;
+  &lt;li&gt;Solutions to problem created, designed, and implemented by end of weekend.&lt;/li&gt;
+  &lt;li&gt;Reflections&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;project&quot;&gt;Project&lt;/h2&gt;
+
+&lt;p&gt;I, personally, had the joy of working with the non-profits from the Grand Rapids Creative Youth Center (GRCYC or CYC) on a Ruby on Rails “Progress Tool” project.&lt;/p&gt;
+
+&lt;p&gt;The project itself was to act as a kiosk sort of sign in for the students and volunteers so CYC could track hours students and volunteers invested in the non-profit. Furthermore, this tool can track the progress of students through the particular programs offered through the CYC, such as Writing Workshops and tutoring. And lastly, a reporting tool that has basic stats in a one-stop report page with links to get a more detailed report of the program or student. These report pages also reports basic demographic information.&lt;/p&gt;
+
+&lt;h2 id=&quot;team&quot;&gt;Team&lt;/h2&gt;
+
+&lt;p&gt;I had the privilege to work with some of the genius’ over at CQL along with Josh (@shekibobo). In terms of brainaics, we had no short supply of brain power, great ideas, and quick production.&lt;/p&gt;
+
+&lt;p&gt;Even though our CQl counterparts had no previous ruby on rails experience, by the end of the weekend and the result of the project would make you scratch your head and ask, “Really? They had no prior ruby experience?”&lt;/p&gt;
+
+&lt;h2 id=&quot;the-weekend&quot;&gt;The Weekend&lt;/h2&gt;
+
+&lt;p&gt;While GR Give Camp is Friday night to Sunday afternoon, I was only able to attend Friday night through Saturday evening. Even though I had a shorter weekend than the event intended, it was still a very enjoyable experience.&lt;/p&gt;
+
+&lt;p&gt;Arriving on Friday - I was totally baffled on where to park. I had looked at the map of GR parking, but with the event going on in the arena and not even sure where The Factory was located I finally just parked in a garage kiddie corner to the intersection my GPS was saying The Factory was. It may have just been me, but I’m not totally familiar with downtown GR area so trying to find my way around, even with the GR Give Camp signs hanging around San Chez, it took me until I recognized someone from BarCamp GR to find the location. Perhaps a “Recommended Parking” would be helpful for next time!&lt;/p&gt;
+
+&lt;p&gt;Friday evening we were blessed with an AMAZING spread of food, drink, and beer (At least in the CQL room). I was able to visit with some awesome friends and meet some new awesome friends. On the other hand, we were not particularly blessed with a good internet connection - however, that made it easier to walk around and get to know everyone, get our computers setup for RoR, and eat some really good food.&lt;/p&gt;
+
+&lt;p&gt;Saturday, I rolled in around 11:30AM and got right down to business programming. Myself and Eric were able to work on the reporting tool that polls the database for student and volunteer information based on check ins. Furthermore, we were able to pull neighborhood and basic demographic information that non-profits need to help get funding. Along with Subway, soda, beer, and Italian food throughout the day, it was a perfect work environment.&lt;/p&gt;
+
+&lt;h2 id=&quot;location&quot;&gt;Location&lt;/h2&gt;
+
+&lt;p&gt;GiveCamp was hosted by The Factory of Grand Rapids. The venue was probably perfect - if I only knew where to park! A lot of work space, central location, and in the heart of GR. For those of you who are looking for a place to work in peace on your new ventures, The Factory is a GREAT place to do that.&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h2&gt;
+
+&lt;p&gt;I loved my experience at GiveCamp. After spending years doing mission and service work (physical) with my church and college around the US, it was an awesome change of pace to be able to offer my technological services to non-profits right here in GR. I love the community here in Grand Rapids. Up until Give Camp, I was actually considering moving out of Grand Rapids to pursue a career elsewhere. Now? Well, I’ve discovered how closely connected I am to people here in Grand Rapids and how great of a community I already have.&lt;/p&gt;
+
+&lt;p&gt;I’ve discovered that I’m not ACTUALLY sick of Ruby or Ruby on Rails… just the type of work I have been doing with it. So here’s to a fresh idea and a fresh start. Mind in the making.&lt;/p&gt;
+
+&lt;p&gt;THANK YOU, GR GiveCamp for an awesome experience!&lt;/p&gt;</content><author><name></name></author><summary type="html">Reflections on Volunteering at Grand Rapids GiveCamp</summary></entry><entry><title type="html">Success</title><link href="http://localhost:4000/blog/2012/04/12/success.html" rel="alternate" type="text/html" title="Success" /><published>2012-04-12T11:15:15-04:00</published><updated>2012-04-12T11:15:15-04:00</updated><id>http://localhost:4000/blog/2012/04/12/success</id><content type="html" xml:base="http://localhost:4000/blog/2012/04/12/success.html">&lt;p&gt;How does one measure the amount of success a person has and has accomplished? Overall, what does “having success” mean? Is it worth pursuing? And if so, how do we pursue it in a healthy matter?&lt;/p&gt;
+
+&lt;p&gt;This world functions and thrives on the idea of the amount of success one person has for his or her self. The higher up in the work hierarchy you are, the more successful. The nicer car, the bigger house, the more houses, the more money - all of these attribute to the “success” of a person. Or you can categorize it in how well one does in school, at an office, a “put-together-family”, doing well in named activities. However, aren’t all these things trivial? Sure, these things all have their measures of success, but is a person’s success based on an unbiased system? In this world, maybe not.&lt;/p&gt;
+
+&lt;p&gt;For me, success isn’t measured by how good you are at things or how much expensive or cool stuff you have. Success is how much effort you put forth in everything you do. Success is getting the job done with your best possible effort. Success is what you think of yourself. And to some degree, success is how others admire your tireless efforts to do all you can to get “the job” done.&lt;/p&gt;
+
+&lt;p&gt;By definition, success means to have succeeded or being marked by favorable outcome. That doesn’t mean that you wear a pressed tuxedo, drive a Ferrari around, and own a multimillion dollar house. It means to live life as it comes, take in stride any problems that arise, and work through them as best you can. Your reward might not be money or a nice car, but the recognition that you are making the most of your life.&lt;/p&gt;
+
+&lt;p&gt;Maybe then, you might think that you’re just wasting away right now. No job, not in school, or perhaps simply just nothing going on. Well, why should you be unsuccessful then? Sure, you might not be doing a whole lot or completing a job - so what? Take it in stride, learn a new hobby, help out around your home, volunteer, or better yet: relax. Life moves forward at a nauseating pace. If you have moment of down time, grasp it and make the most out of doing nothing.&lt;/p&gt;
+
+&lt;p&gt;In my opinion, no one is truly a failure. To fail would mean you didn’t try. The one type of person I might, might, consider unsuccessful is a person who gives up… stops trying.&lt;/p&gt;
+
+&lt;p&gt;Sure, sometimes the problem is so difficult that you cannot solve the problem… so sure you might have failed that one problem, but that in it of itself does not make you unsuccessful. This where I might say, “Throw away your pride and ask someone for help.” Doesn’t make you any less successful. Actually, to me that is more successful than fighting it yourself and giving up.&lt;/p&gt;
+
+&lt;p&gt;Take life in stride and make the most of it.&lt;/p&gt;</content><author><name>Laura Mosher</name></author><summary type="html">How does one measure the amount of success a person has and has accomplished? Overall, what does “having success” mean? Is it worth pursuing? And if so, how do we pursue it in a healthy matter?</summary></entry></feed>
