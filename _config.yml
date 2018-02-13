@@ -18,7 +18,7 @@ email: laura@lauramosher.com
 description: > # this means to ignore newlines until "baseurl:"
   Laura is a full-stack senior software engineer with a passion for clean code and oxford commas.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://lauramosher.com" # the base hostname & protocol for your site, e.g. http://example.com
+url: "https://lauramosher.com" # the base hostname & protocol for your site, e.g. http://example.com
 twitter:
   username: LauraTrev
 social:
