@@ -4,6 +4,29 @@
   {% include head.html %}
 
   <body>
-    {{ content }}
+    <main class="home">
+      <header>
+        <section class="avatar">
+          <img class="profile" src="{{site.url}}/images/profile.jpg" alt="Laura Mosher" title="Laura Mosher" />
+        </section>
+        <section class="header">
+          <h1>Laura J Trevisan Mosher</h1>
+          <div>Senior Software Engineer // Full-Stack Developer</div>
+        </section>
+        <section>
+          <nav>
+            <a href="{{ site.url }}/blog">Blog</a>
+            <a href="public/lauramosher.pdf" target="_blank">Resume</a>
+            <a href="/connect">Connect</a>
+          </nav>
+        </section>
+      </header>
+
+      {{ content }}
+
+      <footer>
+        All opinions represented on this site are my own and do not necessarily represent the views of any affiliated company or individual.
+      </footer>
+    </main>
   </body>
 </html>
