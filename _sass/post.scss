@@ -1,22 +1,14 @@
-a.button {
-  color: #fff;
-  background: #3d85c6;
-  padding: 5px;
-  border: 1px solid #3d85c6;
-
-  &:hover {
-    background-color: lighten(#3d85c6, 10%);
-  }
-}
-
 .post {
-  .posts & {
-    margin-bottom: 2em;
+  a {
+    text-transform: none;
+  }
+  &-title {
+    margin: 0 auto;
+    text-transform: uppercase;
   }
 
-  &--meta {
-    display: flex;
-    justify-content: space-between;
+  &-meta {
+    margin: 0;
   }
 
   &--category {
@@ -36,4 +28,27 @@ a.button {
 .actions {
   display: flex;
   justify-content: space-between;
+}
+
+.list-item {
+  .post--meta {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5em;
+
+    .post-link {
+      text-transform: uppercase;
+    }
+  }
+}
+
+figure {
+  padding: 1em;
+  border-radius: 5px;
+  overflow-x: scroll;
+  margin: 0;
+}
+
+pre {
+  margin: 0;
 }

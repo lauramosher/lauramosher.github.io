@@ -1,44 +1,28 @@
----
-layout: default
----
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+  <head>
+    <title>
+      {% if page.title %}
+        {{ page.title }} &mdash;
+      {% endif %}
+      {{ site.title }}
+    </title>
+    <link rel="stylesheet" media="all" href="{{ site.baseurl }}/stylesheets/blog.css">
+    <link rel="stylesheet" media="all" href="{{ site.baseurl }}/stylesheets/syntax.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    {% seo %}
+    {% include ga.html %}
+    <meta name="keywords" content="Software Development, Software Engineering, Holland, Zeeland, Grand Rapids, Michigan, Ruby, Ruby on Rails, Elixir, Full-Stack, Code, Writer, Laura, Laura Mosher, Laura J Trevisan Mosher">
+  </head>
+  <body>
+    {% include header.html %}
 
-<div>
-  <h1>
-    Blog
-    {% if page.autopage %}
-      //
-      {{ page.autopage.display_name }}
-    {% endif %}
-    <br>
-    <small>A compilation of thoughts on God, life, and software.</small>
-  </h1>
-
-  <section class="posts">
-    {% for post in paginator.posts %}
-      <div class="post">
-        {% assign date_format = "%b %d, %Y" %}
-        <span class="post--meta">
-          <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-          <span>{{ post.date | date: date_format }}</span>
-        </span>
-        {{ post.excerpt | remove: "<p>" | remove: "</p>" }}
-      </div>
-    {% endfor %}
-  </section>
-
-  <div class="actions">
-    {% if paginator.total_pages > 1 %}
-      <div>
-        {% if paginator.previous_page %}
-          <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="button"><< Newer</a>
-        {% endif %}
-      </div>
-
-      <div>
-        {% if paginator.next_page %}
-          <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="button">Older >></a>
-        {% endif %}
-      </div>
-    {% endif %}
-  </div>
-</div>
+    <main>
+      {{ content }}
+      <aside role="sidebar">
+        <img class="profile" src="{{site.url}}/images/profile.jpg" alt="Laura Mosher" title="Laura Mosher" />
+        Laura is a full-stack senior software engineer with a passion for clean code and oxford commas. She's strives to create a better world through code, kindness, and understanding. When she isn't coding, she enjoys rescuing hedgehogs, making things, and playing games.
+      </aside>
+    </main>
+  </body>
+</html>

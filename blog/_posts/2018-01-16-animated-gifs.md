@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "[REPOST] The Power of Animated Gifs"
+author: Laura Mosher
 date: 2018-01-16 21:34:00 -0400
 excerpt: Collective Idea loves animated gifs. We use them in nearly every form of communication we use on a regular basis. It was only a matter of time until we found a new use for animated gifs that brings value to our clients, customers, and development teams.
 ---

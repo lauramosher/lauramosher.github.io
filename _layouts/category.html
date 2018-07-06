@@ -1,17 +1,25 @@
 ---
-layout: default
+layout: blog
 title: Categories
 ---
 
-<h1>
+<h2>
   Blog
   {% unless page.title== '' %}
     //
     <small>{{ page.title }}</small>
   {% endunless %}
-</h1>
+</h2>
 
 {% for post in site.categories[page.category] %}
-  <h2><a href="">{{ post.title }}</a></h2>
-  <p>{{ post.excerpt }}</p>
+  <article>
+    <div class="post list-item">
+      {% assign date_format = "%b %d, %Y" %}
+      <span class="post--meta">
+        <a href="{{ post.url | relative_url }}" class="post-link">{{ post.title }}</a>
+        <span>{{ post.date | date: date_format }}</span>
+      </span>
+      {{ post.excerpt }}
+    </div>
+  </article>
 {% endfor %}
