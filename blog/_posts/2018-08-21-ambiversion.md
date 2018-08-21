@@ -29,7 +29,7 @@ As an ambivert, you pull a solid mix of both introvert and extrovert traits, but
 
 I'm an ambivert. I mix both introverted and extroverted traits. I can be both an introvert and an extrovert in the same social interaction. I can also be just an introvert or just an extrovert. It largely is a conglomeration of the external motivators and my internal motivators that determine exactly how I will act and how I feel in a given social situation.
 
-In some situations where significant extroversion is required, I tend toward being an extrovert, but then take equal amount of time to satisfy my introversion tendencies. A perfect example of this is conferences. When I'm at the conference, I'm out there meeting people, networking, and otherwise thriving in the social situation. But, at the end of the day, I go home. Alone. To my hotel room or airbnb and take a long bath and read a book. They balance each other out. Truthfully, they must balance each other out.
+In some situations where significant extroversion is required, I tend toward being an extrovert, but then take an equal amount of time to satisfy my introversion tendencies. A perfect example of this is conferences. When I'm at the conference, I'm out there meeting people, networking, and otherwise thriving in the social situation. But, at the end of the day, I go home. Alone. To my hotel room or Airbnb and take a long bath and read a book. They balance each other out. Truthfully, they must balance each other out.
 
 In other situations that require extroversion, such as parties, I tend toward being an introvert. I'll branch out a little, but I'll content myself to watch everyone else, listen to conversations, and only contribute when it feels right.
 
