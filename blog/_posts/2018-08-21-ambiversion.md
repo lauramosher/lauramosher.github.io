@@ -13,23 +13,23 @@ It turns out, experts have a term for this: Ambivert.
 
 ## Introverts and Extroverts
 
-It's important to note that introvert and extrovert is a spectrum or a sliding scale. On each end, you have the introverts, who become energized internally; and on the other end, you have extroverts, who become energized externally. In between, there is a whole spectrum of personalities.
+It's important to note that introvert and extrovert is a spectrum or a sliding scale. On one end, you have the introverts, who become energized internally; and on the other end, you have extroverts, who become energized externally. In between, there is a whole spectrum of personalities.
 
 Introverts will feel drained by large amounts of social interaction or in a crowd. They often internally process their thoughts before speaking, and tend to prefer being alone or with a small group of people.
 
 Extroverts will thrive in social interactions — the more the better! They often think as they speak and prefer to be the center of attention. They feel restless and bored if alone.
 
-But what if you don't feel like you fit quite right into either? Or feel you fit quite perfectly iton both?
+But what if you don't feel like you fit quite right into either? Or feel you fit quite perfectly into both?
 
 ## Ambiverts
 
-As an ambivert, you pull a solid mix of both introvert and extrovert traits, but neither trait is dominate. They are often incredibly gifted at sliding between listening carefully and speaking up within the same conversation. They're able to connect with a wider range of people because they're able to contextually connect with who they are with rather than sticking to what they know.
+As an ambivert, you pull a solid mix of both introvert and extrovert traits, but neither trait is dominate. They are often incredibly gifted at sliding between listening carefully and speaking up within the same conversation. They're able to connect with a wider range of people because they're able to contextually connect with who they are with rather than defaulting to their dominate personality trait.
 
 ## Takeaways (for me)
 
-I'm an ambivert. I mix both introverted and extroverted traits. I can be both an introvert and an extrovert in the same social interaction. I can also be just an introvert or just an extrovert. It largely is a conglomeration of the external factors and my internal factors that determine exactly how I act and feel in a given social situation.
+I'm an ambivert. I mix both introverted and extroverted traits. I can be both an introvert and an extrovert in the same social interaction. I can also be just an introvert or just an extrovert. It largely is a conglomeration of the external motivators and my internal motivators that determine exactly how I will act and how I feel in a given social situation.
 
-In some situations that are very much extroversion required, I tend to be that extrovert, but take equal amount of time to satisfy my introversion factor. A perfect example of this is conferences. When I'm at the the conference, I'm out there meeting people, networking, and otherwise thriving in the social situation. But, at the end of the day, I go home. Alone. To my hotel room or airbnb and take a long bath and read a book. They balance each other out, they must balance each other out.
+In some situations where significant extroversion is required, I tend toward being an extrovert, but then take equal amount of time to satisfy my introversion tendencies. A perfect example of this is conferences. When I'm at the conference, I'm out there meeting people, networking, and otherwise thriving in the social situation. But, at the end of the day, I go home. Alone. To my hotel room or airbnb and take a long bath and read a book. They balance each other out. Truthfully, they must balance each other out.
 
 In other situations that require extroversion, such as parties, I tend toward being an introvert. I'll branch out a little, but I'll content myself to watch everyone else, listen to conversations, and only contribute when it feels right.
 
