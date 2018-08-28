@@ -6,14 +6,20 @@ pagination:
 description: "This is a collection of my thoughts on life and software."
 ---
 
+<h1 class="page-title">Laura's Blog</h1>
+
 {% for post in paginator.posts %}
   <article>
     <div class="post list-item">
       {% assign date_format = "%b %d, %Y" %}
-      <span class="post--meta">
-        <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
-        <span>{{ post.date | date: date_format }}</span>
-      </span>
+      <h2 class="post post--title">
+        {{post.title}}
+        <span class="post--meta">
+          <span>{{ post.date | date: date_format }}</span>
+          |
+          <a class="post-link" href="{{ post.url | relative_url }}">Read</a>
+        </span>
+      </h2>
       {{ post.excerpt | remove: "<p>" | remove: "</p>" }}
     </div>
   </article>

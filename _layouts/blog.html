@@ -15,14 +15,20 @@
     <meta name="keywords" content="Software Development, Software Engineering, Holland, Zeeland, Grand Rapids, Michigan, Ruby, Ruby on Rails, Elixir, Full-Stack, Code, Writer, Laura, Laura Mosher, Laura J Trevisan Mosher">
   </head>
   <body>
-    {% include header.html %}
-
     <main>
       {{ content }}
-      <aside role="sidebar">
-        <img class="profile" src="{{site.url}}/images/profile.jpg" alt="Laura Mosher" title="Laura Mosher" />
-        Laura is a full-stack senior software engineer with a passion for clean code and oxford commas. She's strives to create a better world through code, kindness, and understanding. When she isn't coding, she enjoys rescuing hedgehogs, making things, and playing games.
-      </aside>
     </main>
+    <aside role="sidebar">
+      <img class="profile" src="{{site.url}}/images/profile.jpg" alt="Laura Mosher" title="Laura Mosher" />
+      <h3>Laura J Trevisan Mosher</h3>
+      Laura is a full-stack senior software engineer with a passion for clean code and oxford commas. She's strives to create a better world through code, kindness, and understanding. When she isn't coding, she enjoys rescuing hedgehogs, making things, and playing games.
+
+      <nav>
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/public/lauramosher.pdf" target="_blank">Resume</a>
+        <a href="/connect">Connect</a>
+      </nav>
+    </aside>
   </body>
 </html>
