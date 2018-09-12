@@ -2,17 +2,22 @@ $lightgray: #ececec;
 $medgray: #aaa;
 
 .post {
-  h1.post-title {
-    border-bottom: 1px solid $lightgray;
-    padding-bottom: 5px;
-    margin-bottom: 5px;
+  .post--title {
+    margin-bottom: 0;
   }
-  p.post-meta {
+
+  .post--meta {
     color: $medgray;
-    font-size: smaller;
-    margin-top: 5px;
+    margin-bottom: 1em;
   }
+
   a {
     text-transform: none;
   }
+}
+
+.actions {
+  margin-top: 2em;
+  display: flex;
+  justify-content: space-between;
 }
