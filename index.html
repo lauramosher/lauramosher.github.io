@@ -3,22 +3,29 @@ layout: home
 ---
 
 <section>
-  <ul>
-    <li>I live in the hand of Michigan.</li>
-    <li>I live with my wonderful <a href="https://michaelmosher.github.io/">husband</a>.</li>
-    <li>I adopted Princess "Kit" Kitana the hedgehog and Jackie the rescue dog.</li>
-    <li>I like board games. I host board game nights whenever I get the chance.</li>
-    <li>I kicked Calamity Ganon's butt.</li>
-    <li>I read books. A lot of books.</li>
-    <li>I organize my library using the dewey decimal system.</li>
-    <li>I am an oxford comma lover.</li>
-    <li>I founded <a href="https://squareup.com/market/the-hook-look-llc">The Hook Look, LLC</a>, a hobbyist shop showcasing and selling things I make.</li>
-    <li>I organize, or formerly organized, BarcampGR and GR GiveCamp (Code for Good).</li>
-    <li>I volunteer, or formerly volunteered, at GLSEC, Design for Good, BitCamp GR, and GR GiveCamp (Code for Good).</li>
-    <li>I write code &ndash; primarily in Ruby, Ruby on Rails, and React.</li>
-    <li>I love learning new languages.</li>
-    <li>I occasionally will <a href="/blog">write</a> about code, life, and culture.</li>
-    <li>I occasionally get to <a href="/blog/category/speaking">speak</a> about code, life, and culture.</li>
-    <li>I work for the awesome people at <a href="https://planning.center">Planning Center</a>.</li>
-  </ul>
+  <p>I am a senior software engineer and full-stack developer. I currently work for the folks at Planning Center.</p>
+  <p>If I am not working, you can find me running, playing board games or video games, and dabbling in the arts.</p>
+  <p>In addition to my interest in software, I am the founder and owner of <a href="https://thehooklookllc.com">The Hook Look, LLC</a>, a hobbyist shop showcasing and selling things I make.</p>
+  <p>You can find me around the world (but mostly in the United States) at conferences and events, networking and sharing my experiences as a <a href="/blog/category/speaking">speaker</a>. I am also a volunteer and organizer for several local events.</p>
+  <p>My husband and I are considered a "dynamic duo" since we are both in tech related fields. Check out his <a href="https://michaelmosher.github.io">awesome work</a>! We also enjoy woodworking and building things together.</p>
+  <p>I am an avid reader. Please provide me with book suggestions! I enjoy most genres, but you'll find me in the Fantasy/Sci-Fi section most frequently. Fun Fact: My library is organized by the Dewey Decimal System.</p>
+  <p>I am an oxford comma lover.</p>
+</section>
+
+<section>
+  <h3>Recent Blog Posts</h3>
+  {% for post in site.posts limit:3 %}
+    <article>
+      <div class="post list-item">
+        {% assign date_format = "%b %d, %Y" %}
+        <h4 class="post post--title">
+          <a class="post-link" href="{{ post.url | relative_url }}">{{post.title}}</a>
+        </h4>
+        <div class="post--meta">
+          <span>{{ post.date | date: date_format }}</span>
+        </div>
+        {{ post.excerpt | remove: "<p>" | remove: "</p>" }}
+      </div>
+    </article>
+  {% endfor %}
 </section>

@@ -6,37 +6,35 @@ pagination:
 description: "This is a collection of my thoughts on life and software."
 ---
 
-<h1 class="page-title">Laura's Blog</h1>
-
-{% for post in paginator.posts %}
-  <article>
-    <div class="post list-item">
-      {% assign date_format = "%b %d, %Y" %}
-      <h2 class="post post--title">
-        {{post.title}}
-        <span class="post--meta">
+<section>
+  {% for post in paginator.posts %}
+    <article>
+      <div class="post list-item">
+        {% assign date_format = "%b %d, %Y" %}
+        <h3 class="post post--title">
+          <a class="post-link" href="{{ post.url | relative_url }}">{{post.title}}</a>
+        </h3>
+        <div class="post--meta">
           <span>{{ post.date | date: date_format }}</span>
-          |
-          <a class="post-link" href="{{ post.url | relative_url }}">Read</a>
-        </span>
-      </h2>
-      {{ post.excerpt | remove: "<p>" | remove: "</p>" }}
-    </div>
-  </article>
-{% endfor %}
+        </div>
+        {{ post.excerpt | remove: "<p>" | remove: "</p>" }}
+      </div>
+    </article>
+  {% endfor %}
 
-<div class="actions">
-  {% if paginator.total_pages > 1 %}
-    <div>
-      {% if paginator.previous_page %}
-        <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="button"><< Newer</a>
-      {% endif %}
-    </div>
+  <div class="actions">
+    {% if paginator.total_pages > 1 %}
+      <div>
+        {% if paginator.previous_page %}
+          <a href="{{ paginator.previous_page_path | prepend: site.baseurl }}" class="button"><< Newer</a>
+        {% endif %}
+      </div>
 
-    <div>
-      {% if paginator.next_page %}
-        <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="button">Older >></a>
-      {% endif %}
-    </div>
-  {% endif %}
-</div>
+      <div>
+        {% if paginator.next_page %}
+          <a href="{{ paginator.next_page_path | prepend: site.baseurl }}" class="button">Older >></a>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+</section>

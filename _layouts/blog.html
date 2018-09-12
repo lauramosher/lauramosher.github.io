@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
   <head>
     <title>
@@ -6,7 +7,7 @@
       {% endif %}
       {{ site.title }}
     </title>
-    <link rel="stylesheet" media="all" href="{{ site.baseurl }}/stylesheets/blog.css">
+    <link rel="stylesheet" media="all" href="{{ site.baseurl }}/stylesheets/main.css">
     <link rel="stylesheet" media="all" href="{{ site.baseurl }}/stylesheets/syntax.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
@@ -16,19 +17,14 @@
   </head>
   <body>
     <main>
+      {% include header.html %}
+
       {{ content }}
     </main>
-    <aside role="sidebar">
-      <img class="profile" src="{{site.url}}/images/profile.jpg" alt="Laura Mosher" title="Laura Mosher" />
-      <h3>Laura J Trevisan Mosher</h3>
-      Laura is a full-stack senior software engineer with a passion for clean code and oxford commas. She's strives to create a better world through code, kindness, and understanding. When she isn't coding, she enjoys rescuing hedgehogs, making things, and playing games.
-
-      <nav>
-        <a href="/">Home</a>
-        <a href="/blog">Blog</a>
-        <a href="/public/lauramosher.pdf" target="_blank">Resume</a>
-        <a href="/connect">Connect</a>
-      </nav>
-    </aside>
+    <footer>
+      <a href="https://linkedin.com/in/lauramosher"><img src="{{ site.url }}/images/icons/Linkedin.svg" width=32 /></a>
+      <a href="https://github.com/lauramosher"><img src="{{ site.url }}/images/icons/Github.svg" width=32 /></a>
+      <a href="https://twitter.com/lauratrev"><img src="{{ site.url }}/images/icons/Twitter.svg" width=32 /></a>
+    </footer>
   </body>
 </html>
