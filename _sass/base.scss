@@ -19,6 +19,7 @@ header, h1, h2, h3, h4, h5, h6 {
 header {
   h1 {
     margin-bottom: 0;
+    font-size: 2em;
   }
 
   span {
@@ -34,7 +35,6 @@ header {
     }
 
     a {
-      // margin: 1em;
       text-decoration: underline;
 
       &:first-child {
@@ -50,22 +50,8 @@ main > section {
   padding-top: 1em;
 }
 
-// h1 {
-//   font-size: 2em;
-// }
-
-// h2 {
-//   margin-top: 2em;
-//   font-size: 1.5em;
-// }
-
-// h3 {
-//   margin-top: 1.5em;
-// }
-
 a {
   color: #ed6200;
-  /* color: #ff9900; */
   font-weight: bold;
 }
 
