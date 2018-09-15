@@ -17,22 +17,14 @@ header, h1, h2, h3, h4, h5, h6 {
 }
 
 header {
-  h1 {
-    margin-bottom: 0;
+  .header > h1 {
+    margin: 0;
     font-size: 2em;
-  }
-
-  span {
-    font-size: smaller;
   }
 
   nav {
     text-transform: none;
     font-family: "Source Code Pro", Helvetica, Arial, sans-serif;
-
-    span:nth-child(odd) {
-      display: none;
-    }
 
     a {
       text-decoration: underline;
@@ -44,10 +36,8 @@ header {
   }
 }
 
-main > section {
+section.separator {
   border-top: 1px solid lighten(#3d85c6, 20%);
-  margin-top: 1em;
-  padding-top: 1em;
 }
 
 a {
@@ -60,10 +50,6 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    span:nth-child(odd) {
-      display: block;
-    }
   }
 }
 
