@@ -1,10 +1,29 @@
-.highlighter-rouge {
-  background-color: lightgray;
-  padding: 2px;
-  border-radius: 4px;
+blockquote {
+  border-left: 5px solid #ed6200;
+  padding: 0 0 0 1em;
 }
+
+figure.highlight {
+  margin: 0;
+  background-color: #49483e;
+  border-radius: 4px;
+  color: #f8f8f2;
+  overflow-x: scroll;
+}
+
+figure.highlight > pre {
+  margin: 1em;
+}
+
+.highlighter-rouge {
+  background-color: #49483e;
+  border-radius: 4px;
+  color: #f8f8f2;
+}
+
 .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
+
 .highlight .c, .highlight .cd {
   color: #75715e;
   font-style: italic;
@@ -208,8 +227,4 @@
 }
 .highlight .nt {
   color: #f92672;
-}
-.highlight {
-  color: #f8f8f2;
-  background-color: #49483e;
 }

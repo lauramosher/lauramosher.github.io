@@ -19,6 +19,31 @@
     <main>
       {% include header.html %}
 
+      <section>
+        <h2 class="blog-title">
+          Blog
+        </h2>
+
+        <nav>
+          {% assign tags_list = site.categories %}
+          {% for tag in tags_list %}
+            {% if page.category == tag[0] %}
+              {% assign selected = "selected" %}
+            {% else %}
+              {% assign selected = "" %}
+            {% endif %}
+
+            {% if tag[0] == "blog" %}
+              <a href="/{{ tag[0] }}" class={{ selected }}>All</a>
+            {% else %}
+              <a href="/blog/category/{{ tag[0] }}" class={{ selected }}>{{ tag[0] | capitalize }}</a>
+            {% endif %}
+          {% endfor %}
+          {% assign tags_list = nil %}
+          {% assign selected = nil %}
+        </nav>
+      </section>
+
       {{ content }}
     </main>
     <footer>

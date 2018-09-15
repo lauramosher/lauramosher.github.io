@@ -1,7 +1,18 @@
 $lightgray: #ececec;
 $medgray: #aaa;
 
+.blog-title, .post-title {
+  margin-bottom: 0;
+}
+
 .post {
+  &-header {
+    display: block;
+
+    .post-meta {
+      margin: 0;
+    }
+  }
   .post--title {
     margin-bottom: 0;
   }
@@ -20,4 +31,8 @@ $medgray: #aaa;
   margin-top: 2em;
   display: flex;
   justify-content: space-between;
+}
+
+.selected {
+  color: darken(#ed6200, 15%);
 }
