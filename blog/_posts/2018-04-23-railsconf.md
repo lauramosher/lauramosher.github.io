@@ -3,6 +3,7 @@ layout: post
 title: "RailsConf: Coming down from the high"
 date: 2018-04-23 18:34:00 -0400
 excerpt: RailsConf Post-Conference blues are in full swing, so lets reminisce!
+category: events
 ---
 
 [RailsConf](https://railsconf.com/) holds a special place in my heart; RailsConf Atlanta was the first time I experienced a technical conference as a newly minted software developer, degree and all.
