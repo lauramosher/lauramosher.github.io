@@ -12,6 +12,7 @@ I have had the priviledge of presenting this talk at:
 - <a href="https://codeandsupply.com/heartifacts">Heartifacts 2018</a>.
 - <a href="https://buffer.com">Buffer</a> engineering team in 2018.
 - <a href="https://beercitycode.com/">Beer City Code 2018</a>.
+- <a href="https://bigdataignite.org/">Big Data Ignite 2018</a>.
 
 If you would like to book me for this talk, please <a href="/connect">contact me</a>!
 

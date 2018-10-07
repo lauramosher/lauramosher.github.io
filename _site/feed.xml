@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-09-18T09:20:07-04:00</updated><id>http://localhost:4000/</id><title type="html">Laura Mosher // Senior Software Engineer // Full-Stack Developer</title><subtitle>Laura is a full-stack senior software engineer with a passion for clean code and oxford commas.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-10-07T11:47:43-04:00</updated><id>http://localhost:4000/</id><title type="html">Laura Mosher // Senior Software Engineer // Full-Stack Developer</title><subtitle>Laura is a full-stack senior software engineer with a passion for clean code and oxford commas.
 </subtitle><entry><title type="html">Getting Node.js Working on Heroku: Abridged</title><link href="http://localhost:4000/blog/2018/09/15/node-heroku.html" rel="alternate" type="text/html" title="Getting Node.js Working on Heroku: Abridged" /><published>2018-09-15T10:00:00-04:00</published><updated>2018-09-15T10:00:00-04:00</updated><id>http://localhost:4000/blog/2018/09/15/node-heroku</id><content type="html" xml:base="http://localhost:4000/blog/2018/09/15/node-heroku.html">&lt;p&gt;Once in a while, I get to work on a small, one-off project that solves some need. Recently, I got to write one with one of my colleagues and we decided to host it on &lt;a href=&quot;https://heroku.com&quot;&gt;Heroku&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Unfortunately, the setup wasn’t quite as straightforward as we might have hoped.&lt;/p&gt;
@@ -157,6 +157,7 @@
   &lt;li&gt;&lt;a href=&quot;https://codeandsupply.com/heartifacts&quot;&gt;Heartifacts 2018&lt;/a&gt;.&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://buffer.com&quot;&gt;Buffer&lt;/a&gt; engineering team in 2018.&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;https://beercitycode.com/&quot;&gt;Beer City Code 2018&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://bigdataignite.org/&quot;&gt;Big Data Ignite 2018&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;If you would like to book me for this talk, please &lt;a href=&quot;/connect&quot;&gt;contact me&lt;/a&gt;!&lt;/p&gt;
