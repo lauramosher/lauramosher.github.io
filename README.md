@@ -1,7 +1,7 @@
 # [Laura Mosher](https://lauramosher.github.io)
 [lauramosher.com](http://lauramosher.com) // [laura@lauramosher.com](mailto:laura@lauramosher.com)
 
-<p>I am a senior software engineer and full-stack developer. I currently work for the folks at Planning Center.</p>
+<p>I am a senior software engineer and full-stack developer.</p>
 <p>In addition to my interest in software, I am the founder and owner of <a href="https://thehooklookllc.com">The Hook Look, LLC</a>, a hobbyist shop showcasing and selling things I make.</p>
 <p>In my spare time, you can find me running, reading books, playing games, or dabbling in the arts.</p>
 <p>I am an avid reader. I enjoy most genres, but you'll find me most frequently in the Fantasy/Sci-Fi section most frequently. Fun Fact: My library is organized by the Dewey Decimal System.</p>
