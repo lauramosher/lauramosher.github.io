@@ -1,0 +1,29 @@
+<script>
+  var params = (new URL(document.location)).searchParams;
+  var switcher = document.querySelector("#switcher");
+  var pageUrl = switcher.dataset.page;
+  var origin = switcher.dataset.origin;
+
+  var linkElement = document.createElement("a");
+
+  if (params.get("mode") === "dark") {
+    document.querySelector("body").classList.add("dark");
+
+    document.querySelectorAll("a").forEach(function(link) {
+      var linkOrigin = (new URL(link.href)).origin;
+
+      if (linkOrigin === origin) {
+        link.href = link.href + "?mode=dark"
+      }
+    })
+
+    linkElement.href = origin + pageUrl
+    linkElement.innerHTML = "Light Theme"
+    switcher.appendChild(linkElement);
+
+  } else {
+    linkElement.href = origin + pageUrl + "?mode=dark"
+    linkElement.innerHTML = "Dark Theme"
+    switcher.appendChild(linkElement);
+  }
+</script>

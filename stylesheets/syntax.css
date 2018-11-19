@@ -11,6 +11,11 @@ figure.highlight {
   overflow-x: scroll;
 }
 
+.dark figure.highlight {
+  background-color: #ececec;
+  color: #0c0c0c;
+}
+
 figure.highlight > pre {
   margin: 1em;
 }
@@ -227,4 +232,36 @@ figure.highlight > pre {
 }
 .highlight .nt {
   color: #f92672;
+}
+
+.dark .highlight .no,
+.dark .highlight .bp,
+.dark .highlight .nb,
+.dark .highlight .ni,
+.dark .highlight .nn,
+.dark .highlight .vc,
+.dark .highlight .vg,
+.dark .highlight .vi,
+.dark .highlight .nv,
+.dark .highlight .nl,
+.dark .highlight .w {
+  color: #656565;
+}
+
+.dark .highlight .nb {
+  color: #000;
+}
+
+.dark .highlight .sb,
+.dark .highlight .sc,
+.dark .highlight .sd,
+.dark .highlight .s2,
+.dark .highlight .sh,
+.dark .highlight .si,
+.dark .highlight .sx,
+.dark .highlight .sr,
+.dark .highlight .s1,
+.dark .highlight .ss,
+.dark .highlight .s {
+  color: #b6a44d;
 }
