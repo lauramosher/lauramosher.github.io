@@ -30,7 +30,7 @@ When I finally landed a job after months of searching, I was understandably ecst
 
 I thought I was wrong for wanting to learn more. I thought my desire to better myself was a defect, not an asset. These feelings had a deep hold on me, and fueled my imposter syndrome for years. Desiring to learn and grow and be your best self are all assets. I, and likely others in senior or leadership positions, will continue to yell this for those in the back:
 
-> We can all suffer from imposter syndrom. We can all struggle with doubt. We can all think someone is going to out us for being fakes. You are not alone.
+> We can all suffer from imposter syndrome. We can all struggle with doubt. We can all think someone is going to out us for being fakes. You are not alone.
 
 There was one specific encounter that made me aware of their dislike of me. One of my coworkers had encountered an issue with the shared setup we used to run our local development servers. At the end of a team all-hands meeting, our boss asked them if they had figured out the issue yet as we were all getting up to leave. They had, apparently, asked every other person on the team for help on this ongoing issue and collectively, they still hasn't resolved it. This being the first time I had heard about the issue, I asked a few questions since it sounded very similar to an issue I troubleshot weeks earlier and fixed. I inquired if the issue was presenting in the way I had encountered and mentioned that I might have a solution if so.
 
