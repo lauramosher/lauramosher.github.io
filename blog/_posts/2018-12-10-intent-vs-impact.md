@@ -1,6 +1,6 @@
 ---
 title: Intent vs Impact
-date: 2018-10-15 10:00:00 -0400
+date: 2018-12-10 15:00:00 -0400
 author: Laura Mosher
 ---
 
@@ -12,11 +12,11 @@ Spoiler: It's not.
 
 This type of thinking is so, so harmful.
 
-Even if you ALWAYS communicated with the best of intentions, the impact of your words can still land on the wrong side of the line. And even if you always assume that the person communicating with you is ALWAYS communicating with best intentions, their words can still hurt. We've all been there. So why, when we're approached by someone calling us out for our words, are we so defensive of what we said?
+Even if you ALWAYS communicated with the best of intentions, the impact of your words can still land on the wrong side of the line. And even if you always assume that the person communicating with you is communicating with their best intentions, their words can still hurt. We've all been there. So why, when we're approached by someone calling us out for our words, are we so defensive of what we said?
 
 Intent is only half of the picture.
 
-When you are communicating with someone else, the _intent_ is what you feel your words mean and the _impact_ is what they feel your words mean. The can result in there is a huge discrepancy between your intent and the impact they feel.
+When you are communicating with someone else, the _intent_ is what you feel your words mean and the _impact_ is what they feel your words mean. This can result in there being a huge discrepancy between your intent and the impact they feel.
 
 To illustrate this, I have three stories I'd like to share with all of you.
 
@@ -26,23 +26,17 @@ I struggled to get a job out of college. It was a long, grueling process. Reject
 
 I thought I wasn't good enough. I _believed_ I wasn't good enough.
 
-When I finally landed a job after months of searching, I was understandably ecstatic. I met my team, got to know the ecosystem, and was learning as fast as I possibly could. My enthusiasm was noticed and felt by the entire team.
+When I finally landed a job after months of searching, I was understandably ecstatic. I met my team, got to know the ecosystem, and was learning as fast as I possibly could. I was determined to prove my worth and my abilities. My enthusiasm was noticed and felt by the entire team. And they were not happy about it.
 
-And they were not happy about it.
+I thought I was wrong for wanting to learn more. I thought my desire to better myself was a defect, not an asset. These feelings had a deep hold on me, and fueled my imposter syndrome for years. Desiring to learn and grow and be your best self are all assets. I, and likely others in senior or leadership positions, will continue to yell this for those in the back:
 
-I thought I was wrong for wanting to learn more. I thought my desire to better myself was a defect, not an asset.
+> We can all suffer from imposter syndrom. We can all struggle with doubt. We can all think someone is going to out us for being fakes. You are not alone.
 
-This is and always will be inaccurate. Desiring to learn, grow, and be your best self are all assets. I, and likely others in senior or leadership positions, will continue to yell this for those in the back:
+There was one specific encounter that made me aware of their dislike of me. One of my coworkers had encountered an issue with the shared setup we used to run our local development servers. At the end of a team all-hands meeting, our boss asked them if they had figured out the issue yet as we were all getting up to leave. They had, apparently, asked every other person on the team for help on this ongoing issue and collectively, they still hasn't resolved it. This being the first time I had heard about the issue, I asked a few questions since it sounded very similar to an issue I troubleshot weeks earlier and fixed. I inquired if the issue was presenting in the way I had encountered and mentioned that I might have a solution if so.
 
-> WE ALL SUFFER FROM IMPOSTER SYNDROME. WE ALL STRUGGLE WITH DOUBT. WE ALL THINK SOMEONE IS GOING TO OUT US FOR BEING FAKES. YOU ARE NOT ALONE.
+Well, that solution worked. And one of my other coworkers quipped loudly, "Ha! The junior engineer showed up two senior engineers!"
 
-One encounter really stands out to me, even all these years later. One of my coworkers encountered an issue with the shared setup we used to run our local development servers. At the end of a team all-hands, as an after thought, our boss asked them if they had figured out the issue yet at the end of the meeting, as an after thought. They had, apparently, asked every other person on the team for help and collectively, they still hadn't resolved it.
-
-It being the first time I had heard they were having troubles, and that the issue they encountered sounded very similar to an issue I had troubleshooted weeks earlier and fixed, I inquired if the issue was presenting in the way I had encountered and mentioned that I might have a solution if so.
-
-Well, that solution worked. And one of my other coworkers quipped, "Ha! The junior engineer showed up two senior engineers!"
-
-The impact was confusing. I felt like I had somehow disrespected my coworkers, that I shouldn't have mentioned that I had a solution, that my input wasn't appreciated. For a long time after that, I had difficulty bringing up alternative options, questioning when something seemed wrong, and otherwise being confident in my experiences and asserting them when it was necessary. I later found out that the person's intention in that statement was that I was smart and resourceful; and that they were impressed that I had been able to figure it out. Good intent, with a lingering negative impact on me.
+The impact here was confusing. I felt like I had somehow disrespected my coworkers, that I shouldn't have mentioned that I had a solution, that my input wasn't appreciated. For a long time after that, I had difficulty bringing up alternative options, questioning when something seemed wrong, and otherwise being confident in my experiences and asserting them when it was necessary. I later found out that the person's intention in that statement was that I was smart and resourceful; and that they were impressed that I had been able to figure it out. Good intent, that had a lingering negative impact on me.
 
 #### Women in Tech: Fighting an Uphill Battle
 
@@ -63,27 +57,27 @@ Despite all of the implicit biases against women in tech, other STEM fields, and
 
 #### LGTBQ+ Discovery: I'm Queer.
 
-After my now husband and I had been dating for over two years, we approached my parents about the idea of the two of us living together. They were against it, mostly on religious grounds: abstinence before marriage. I understood, but I also viscerally felt that it was truly not a problem.
+After my now husband and I had been dating for over two years, we broached the topic of living together. We were met with resistance by some family and friends, mostly on religious grounds: abstinence before marriage. I understood, but I also viscerally felt that it was truly not a problem.
 
-Arguing my case, my mother's retort felt harsh: "If the temptation to have sex isn't there, then the love isn't real."
+Arguing my case, one person's retort felt particularly harsh: "If the temptation [to have sex] isn't there, then the love isn't real."
 
 That hurt. A lot. At the time, I had no idea how to explain what I felt or why I felt the way I did, but I was emotional and hurt.
 
-Now, please understand, I love my mom. She's one of my biggest supporters and wants the absolute best for me. I value her advice and her input on most aspects of my life. I understood where she was coming from: in the traditional sense, sexual temptation is a common indicator of a healthy relationship. What neither of us knew at that time was that sexual temptation was not and would never be a problem for me, or a useful indicator of love.
+I understood where they were coming from: in the traditional sense, sexual temptation is a common indicator of a healthy relationship. What we didn't know at that time was that sexual temptation was not and would never be a problem for me, or a useful indicator of love.
 
-Why? Because I'm asexual (Ace). I'm also panromantic, though less relevant to this story.
+Why? Because I'm asexual (Ace).
 
 For me, being ace means I have no desire for sex; I do not feel arousal and I do not feel sexual attraction to another person. However, I do have deep and intimate feelings and connections to another person. And those feelings and connections are absolutely indicators of real love and real affection that healthy relationships can be built on.
 
 Despite believing that my relationship is genuine, I had this sliver of doubt for many years after. That what I felt wasn't real because I didn't want sex. That my partner would leave me(*) or was unhappy with me because I didn't want sex. Sex was this constant struggle. Sex was a hurdle that I felt I needed to overcome in order to have a healthy relationship.
 
-It's been years since that conversation with my mom. My husband and I have been happily married for over 5 years now; and after all this time, that temptation has never been there for me. Yet our relationship is healthy, and we regularly receive comments on how genuine our relationship seems to people.
+It's been years since that conversation. My husband and I have been happily married for over 5 years now; and after all this time, that temptation has never been there for me. Yet our relationship is healthy, and we regularly receive comments on how genuine our relationship seems to people.
 
 This discovery is recent, sometime in the last year or so. I've come to understand why I felt that way and why that statement hurt so much, and I am able to articulate the hurt I felt.
 
 I'm an open book when it comes to my sexual orientation and romantic inclinations. Please, please ask me about it if you're curious. It's worth noting that the asexual community has varying experiences. I personally don't feel arousal, while other asexuals may. You can read more about the ace community at <a href="https://www.asexuality.org/?q=overview.html">asexuality.org</a>.
 
-(*) It is only fair to note that had there been other issues in our relationship (making it unhealthy), not wanting sex and the struggle could have caused us to split. Our relationship is incredibly healthy and so this blip is something we work through together.
+(*) It is only fair to note that had there been other issues in our relationship (making it unhealthy), not wanting sex and the struggle could have caused us to split. Our relationship is incredibly healthy and so this blip is something we are able to work through together.
 
 ### Best intentions, phrased for the best impact.
 
