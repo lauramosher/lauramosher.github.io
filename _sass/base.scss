@@ -1,105 +1,70 @@
 body {
-  font-family: "Source Code Pro", Helvetica, Arial, sans-serif;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
   margin: 0;
   font-size: 16px;
 
-  &.dark {
-    background-color: #232735;
-    color: #7c818c;
-  }
+  background-color: $background;
+  color: $text;
 }
 
 main {
   max-width: 600px;
   margin: 0 auto 50px auto;
   padding: 1em;
-
-  &.blog {
-    max-width: 800px;
-  }
 }
 
-header, h1, h2, h3, h4, h5, h6 {
-  color: #3d85c6;
+header, h1, h2, h3, h4  {
+  color: $header;
   font-family: Oswald, Helvetica, Arial, sans-serif;
-  text-transform: uppercase;
-
-  &.dark {
-    color: #5294e2;
-  }
 }
 
 header {
-  .header > h1 {
-    margin: 0;
-    font-size: 2em;
+  text-transform: uppercase;
+  text-align: center;
+
+  .header {
+    margin-bottom: 1rem;
+
+    > h1 {
+      margin: 0;
+      font-size: 2em;
+    }
   }
 
   nav {
+    font-family: Roboto, Helvetica, Arial, sans-serif;
     text-transform: none;
-    font-family: "Source Code Pro", Helvetica, Arial, sans-serif;
-
-    a {
-      text-decoration: underline;
-
-      &:first-child {
-        margin: none;
-      }
-    }
+    margin-bottom: 2em;
   }
 }
 
-section.separator {
-  border-top: 1px solid lighten(#3d85c6, 20%);
+div.about {
+  display: flex;
+  justify-content: center;
+  font-family: Oswald, Helvetica, sans-serif;
+}
+
+img.headshot {
+  border-radius: 100%;
+  width: 250px;
+  height: 250px;
+  margin: 0 20px;
+}
+
+section {
+  &.single-space {
+    p {
+      margin: 0;
+    }
+  }
+  &.blurb {
+    font-size: 2rem;
+  }
+  &.separator {
+    border-top: 1px solid #005e7c;
+  }
 }
 
 a {
-  color: #ed6200;
-  font-weight: bold;
-}
-
-#switcher {
-  text-align: right;
-}
-
-@media only screen and (min-width: 700px) {
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
-
-footer {
-  margin-top: 1em;
-  padding-top: 1em;
-  text-align: center;
-}
-
-label {
-  display: inline-block;
-  text-align: right;
-  width: 100px;
-  vertical-align: top;
-}
-
-input[type=text], textarea {
-  border: 1px solid gray;
-  border-radius: 3px;
-  padding: 5px;
-  width: 200px;
-}
-
-input[type=submit] {
-  border: 1px solid #183542;
-  background-color: #3d85c6;
-  cursor: pointer;
-  color: #FFF;
-  padding: 10px;
-  text-transform: uppercase;
-  width: 212px;
-
-  &:hover {
-    background-color: #183542;
-  }
+  color: $links;
 }

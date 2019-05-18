@@ -1,11 +1,11 @@
 blockquote {
-  border-left: 5px solid #ed6200;
+  border-left: 5px solid #22aed1;
   padding: 0 0 0 1em;
 }
 
 figure.highlight {
   margin: 0;
-  background-color: #49483e;
+  background-color: #0a2342;
   border-radius: 4px;
   color: #f8f8f2;
   overflow-x: scroll;
@@ -21,7 +21,7 @@ figure.highlight > pre {
 }
 
 .highlighter-rouge {
-  background-color: #49483e;
+  background-color: #0a2342;
   border-radius: 4px;
   color: #f8f8f2;
 }

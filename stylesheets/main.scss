@@ -1,7 +1,12 @@
 ---
 ---
 
-@import url('https://fonts.googleapis.com/css?family=Oswald|Source+Code+Pro');
+$background: #fdfffc;
+$text: #0a2342;
+$header: #0a2342;
+$links: #2ec4b6;
+
+@import url('https://fonts.googleapis.com/css?family=Oswald|Roboto');
 @import "base";
 @import "post";
 

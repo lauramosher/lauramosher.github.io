@@ -2,29 +2,14 @@
 layout: home
 ---
 
-<section>
-  <p>I am a senior software engineer and full-stack developer.</p>
-  <p>In addition to my interest in software, I am the founder and owner of <a href="https://thehooklookllc.com">The Hook Look, LLC</a>, a hobbyist shop showcasing and selling things I make.</p>
-  <p>In my spare time, you can find me running, reading books, playing games, or dabbling in the arts.</p>
-  <p>I am an avid reader. I enjoy most genres, but you'll find me most frequently in the Fantasy/Sci-Fi section. Fun Fact: My library is organized by the Dewey Decimal System.</p>
-  <p>You can find me traveling to conferences and events, networking, and sharing my experiences as a <a href="/blog/category/talks">speaker</a>. I am also a volunteer and organizer for several local events.</p>
-  <p>I am an oxford comma advocate.</p>
-</section>
+<div class="about">
+  <img src="images/profile.jpg" class="headshot"/>
 
-<section class="separator">
-  <h3>Recent Blog Posts</h3>
-  {% for post in site.posts limit:3 %}
-    <article>
-      <div class="post list-item">
-        {% assign date_format = "%b %d, %Y" %}
-        <h4 class="post post--title">
-          <a class="post-link" href="{{ post.url | relative_url }}">{{post.title}}</a>
-        </h4>
-        <div class="post--meta">
-          <span>{{ post.date | date: date_format }}</span>
-        </div>
-        {{ post.excerpt | remove: "<p>" | remove: "</p>" }}
-      </div>
-    </article>
-  {% endfor %}
-</section>
+  <section class="single-space blurb">
+    <p>Engineer&</p>
+    <p>Speaker&</p>
+    <p>Mentor&</p>
+    <p>Digital Nomad&</p>
+    <p>Queer.</p>
+  </section>
+</div>
