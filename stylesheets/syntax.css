@@ -24,6 +24,7 @@ figure.highlight > pre {
   background-color: #0a2342;
   border-radius: 4px;
   color: #f8f8f2;
+  padding: 2px 3px;
 }
 
 .highlight table td { padding: 5px; }

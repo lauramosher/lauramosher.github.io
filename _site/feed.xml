@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-12-20T21:29:49-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Laura Mosher // Senior Software Engineer // Full-Stack Developer</title><subtitle>Laura is a full-stack senior software engineer with a passion for clean code and oxford commas.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-13T08:53:57-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Laura Mosher // Senior Software Engineer // Full-Stack Developer</title><subtitle>Laura is a full-stack senior software engineer with a passion for clean code and oxford commas.
 </subtitle><entry><title type="html">Into the Unknown</title><link href="http://localhost:4000/blog/2019/12/20/into-the-unknown.html" rel="alternate" type="text/html" title="Into the Unknown" /><published>2019-12-20T16:00:00-05:00</published><updated>2019-12-20T16:00:00-05:00</updated><id>http://localhost:4000/blog/2019/12/20/into-the-unknown</id><content type="html" xml:base="http://localhost:4000/blog/2019/12/20/into-the-unknown.html">&lt;p&gt;As 2019 wraps up, I am sitting with the wild ride that this year has been.&lt;/p&gt;
 
 &lt;p&gt;Before January had even completed, life threw two curveballs at me: my mom was diagnosed with cancer (AML) and my hedgehog of almost 6 years passed away. In the same week. I chalked it up to the worst week of my life and assumed that it would be a while before anything topped that.&lt;/p&gt;
@@ -126,13 +126,13 @@
 
 &lt;p&gt;A basic node+express application usually follows this general setup to instantiate the server:&lt;/p&gt;
 
-&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;express&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;express&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;express&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;express&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;express&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 
 &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;start&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;async&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
   &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;port&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt;
-  &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;port&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
   &lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;server&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;http&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createServer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
@@ -155,22 +155,22 @@
 &lt;h2 id=&quot;config-package-in-production&quot;&gt;config package in Production&lt;/h2&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Tip 1: If you need custom environment variables in your configuration, use the proper &lt;code class=&quot;highlighter-rouge&quot;&gt;config&lt;/code&gt; file.&lt;/p&gt;
+  &lt;p&gt;Tip 1: If you need custom environment variables in your configuration, use the proper &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config&lt;/code&gt; file.&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;The &lt;a href=&quot;https://www.npmjs.com/package/config&quot;&gt;config&lt;/a&gt; package is a  neat tool for managing configuration of multiple environments. This app only had two: development and production, but even for this simple use case it was extremely helpful.&lt;/p&gt;
 
 &lt;p&gt;This app specifically needed this level of configuration because we integrated with Slack API and GoogleSheets API — both needing tokens and other sensitive information that is best left out of the codebase.&lt;/p&gt;
 
-&lt;p&gt;In development, the codebase has a committed &lt;code class=&quot;highlighter-rouge&quot;&gt;config/development.json.example&lt;/code&gt; and have the developer set up with the proper tokens.&lt;/p&gt;
+&lt;p&gt;In development, the codebase has a committed &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config/development.json.example&lt;/code&gt; and have the developer set up with the proper tokens.&lt;/p&gt;
 
-&lt;p&gt;In production though, those values are set in environment variables. Per the &lt;a href=&quot;https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables&quot;&gt;documentation&lt;/a&gt;, custom environment variables have their own file &lt;code class=&quot;highlighter-rouge&quot;&gt;config/custom-environment-variables.json&lt;/code&gt; organized in the same structure as your configuration.&lt;/p&gt;
+&lt;p&gt;In production though, those values are set in environment variables. Per the &lt;a href=&quot;https://github.com/lorenwest/node-config/wiki/Environment-Variables#custom-environment-variables&quot;&gt;documentation&lt;/a&gt;, custom environment variables have their own file &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config/custom-environment-variables.json&lt;/code&gt; organized in the same structure as your configuration.&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;Tip 2: Ensure you are also specifying a &lt;code class=&quot;highlighter-rouge&quot;&gt;config/production.json&lt;/code&gt; config file so the server knows there is a production environment, even if all of your configuration is in that special file.&lt;/p&gt;
+  &lt;p&gt;Tip 2: Ensure you are also specifying a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config/production.json&lt;/code&gt; config file so the server knows there is a production environment, even if all of your configuration is in that special file.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;The catch? Even if every single one of your configurations utilize a custom environment variable, you still need to have a &lt;code class=&quot;highlighter-rouge&quot;&gt;config/production.json&lt;/code&gt; file for the sever to run.&lt;/p&gt;
+&lt;p&gt;The catch? Even if every single one of your configurations utilize a custom environment variable, you still need to have a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;config/production.json&lt;/code&gt; file for the sever to run.&lt;/p&gt;
 
 &lt;h2 id=&quot;redis-configuration&quot;&gt;redis configuration&lt;/h2&gt;
 
@@ -178,7 +178,7 @@
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span class=&quot;kd&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;client&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;redis&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;createClient&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;redisConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;host&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;redisConfig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;port&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;But when you provision Heroku Redis for your app, Heroku provides the environment variables &lt;code class=&quot;highlighter-rouge&quot;&gt;REDIS_URL&lt;/code&gt;. Technically, it includes the host and port, as well as a user name and password, but the provided url includes everything you need.&lt;/p&gt;
+&lt;p&gt;But when you provision Heroku Redis for your app, Heroku provides the environment variables &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;REDIS_URL&lt;/code&gt;. Technically, it includes the host and port, as well as a user name and password, but the provided url includes everything you need.&lt;/p&gt;
 
 &lt;p&gt;So instead, this is the HerokuWay™ for creating the Redis client.&lt;/p&gt;
 
@@ -187,16 +187,16 @@
 &lt;p&gt;If you’re using config for your environment variable configuration, update your default configuration to look like this:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;redis&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;redisUrl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;redis://127.0.0.1:6379/1&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;redis&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;redisUrl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;redis://127.0.0.1:6379/1&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;p&gt;And your custom environment variable configuration&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;redis&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
-    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;redisUrl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;REDIS_URL&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;redis&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;redisUrl&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;REDIS_URL&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
   &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
@@ -326,11 +326,11 @@ thing in comparison because it didn’t put you higher on the hierarchy.&lt;/p&g
 
 &lt;p&gt;Evaluate what you find successful and base your success off of that. The world will emphasize those with the louder
 “voice” and say that is more successful. Remember: Your personal success will be more important that whatever the last
-person did.&lt;/p&gt;</content><author><name></name></author><summary type="html">Success is measured on a sliding scale. You can be successful without being &quot;on top&quot;.</summary></entry><entry><title type="html">Creating a Hash from a Collection</title><link href="http://localhost:4000/blog/code/2014/03/12/creating-a-hash-from-a-collection.html" rel="alternate" type="text/html" title="Creating a Hash from a Collection" /><published>2014-03-12T16:35:45-04:00</published><updated>2014-03-12T16:35:45-04:00</updated><id>http://localhost:4000/blog/code/2014/03/12/creating-a-hash-from-a-collection</id><content type="html" xml:base="http://localhost:4000/blog/code/2014/03/12/creating-a-hash-from-a-collection.html">&lt;p&gt;I recently needed to create a hash lookup from an object using the ID as the lookup key and the full object as the value in our rails app. It wasn’t a difficult concept and there were several ways this could be accomplished; however, we just couldn’t find a way that made sense or didn’t involve looping. That is, until we found &lt;code class=&quot;highlighter-rouge&quot;&gt;index_by&lt;/code&gt;.&lt;/p&gt;
+person did.&lt;/p&gt;</content><author><name></name></author><summary type="html">Success is measured on a sliding scale. You can be successful without being &quot;on top&quot;.</summary></entry><entry><title type="html">Creating a Hash from a Collection</title><link href="http://localhost:4000/blog/code/2014/03/12/creating-a-hash-from-a-collection.html" rel="alternate" type="text/html" title="Creating a Hash from a Collection" /><published>2014-03-12T16:35:45-04:00</published><updated>2014-03-12T16:35:45-04:00</updated><id>http://localhost:4000/blog/code/2014/03/12/creating-a-hash-from-a-collection</id><content type="html" xml:base="http://localhost:4000/blog/code/2014/03/12/creating-a-hash-from-a-collection.html">&lt;p&gt;I recently needed to create a hash lookup from an object using the ID as the lookup key and the full object as the value in our rails app. It wasn’t a difficult concept and there were several ways this could be accomplished; however, we just couldn’t find a way that made sense or didn’t involve looping. That is, until we found &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;index_by&lt;/code&gt;.&lt;/p&gt;
 
 &lt;h2 id=&quot;setup&quot;&gt;Setup&lt;/h2&gt;
 
-&lt;p&gt;Let’s assume we have an &lt;code class=&quot;highlighter-rouge&quot;&gt;Animal&lt;/code&gt; class and an &lt;code class=&quot;highlighter-rouge&quot;&gt;Animals&lt;/code&gt; list class:&lt;/p&gt;
+&lt;p&gt;Let’s assume we have an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Animal&lt;/code&gt; class and an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Animals&lt;/code&gt; list class:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Animal&lt;/span&gt;
   &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -363,7 +363,7 @@ animals = Animals.new(animal_array).animal_list
 ]&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
 &lt;h2 id=&quot;using-hasha&quot;&gt;Using Hash[a]&lt;/h2&gt;
-&lt;p&gt;Our first solution took advantage of &lt;code class=&quot;highlighter-rouge&quot;&gt;Hash&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;Our first solution took advantage of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Hash&lt;/code&gt;:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;map&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;no&quot;&gt;Hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
@@ -382,11 +382,11 @@ animals = Animals.new(animal_array).animal_list
 
 &lt;h2 id=&quot;using-enumerable-index_by&quot;&gt;Using Enumerable .index_by()&lt;/h2&gt;
 
-&lt;p&gt;Our final solution, we used the Enumerable &lt;code class=&quot;highlighter-rouge&quot;&gt;index_by&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;Our final solution, we used the Enumerable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;index_by&lt;/code&gt;:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;animals&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index_by&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;ss&quot;&gt;:id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Note: &lt;code class=&quot;highlighter-rouge&quot;&gt;.index_by&lt;/code&gt; accepts a block. So if you want to index by two fields such as first and last name, you could easily do this with the block:&lt;/p&gt;
+&lt;p&gt;Note: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.index_by&lt;/code&gt; accepts a block. So if you want to index by two fields such as first and last name, you could easily do this with the block:&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;people&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;index_by&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;first_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;si&quot;&gt;#{&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;person&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;last_name&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
