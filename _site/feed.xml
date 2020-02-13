@@ -1,5 +1,365 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-13T11:20:15-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Laura Mosher // Lead Software Engineer // Full-Stack Developer</title><subtitle>Laura is a full-stack senior software engineer with a passion for clean code and oxford commas.
-</subtitle><entry><title type="html">Into the Unknown</title><link href="http://localhost:4000/blog/2019/12/20/into-the-unknown.html" rel="alternate" type="text/html" title="Into the Unknown" /><published>2019-12-20T16:00:00-05:00</published><updated>2019-12-20T16:00:00-05:00</updated><id>http://localhost:4000/blog/2019/12/20/into-the-unknown</id><content type="html" xml:base="http://localhost:4000/blog/2019/12/20/into-the-unknown.html">&lt;p&gt;As 2019 wraps up, I am sitting with the wild ride that this year has been.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-02-13T11:30:02-05:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Laura Mosher // Lead Software Engineer // Full-Stack Developer</title><subtitle>Laura is a full-stack senior software engineer with a passion for clean code and oxford commas.
+</subtitle><entry><title type="html">JavaScript can call your Ruby functions directly</title><link href="http://localhost:4000/blog/code/2020/02/13/ruby-in-js.html" rel="alternate" type="text/html" title="JavaScript can call your Ruby functions directly" /><published>2020-02-13T09:00:00-05:00</published><updated>2020-02-13T09:00:00-05:00</updated><id>http://localhost:4000/blog/code/2020/02/13/ruby-in-js</id><content type="html" xml:base="http://localhost:4000/blog/code/2020/02/13/ruby-in-js.html">&lt;p&gt;Wait, really? Yes, really.&lt;/p&gt;
+
+&lt;p&gt;I recently needed to solve an odd problem that required this kind of weird solution. Unfortunately, the solution fell short of the exact need for my client; however, the results of my findings are definitely worth sharing — especially given that my PopularSearchEngine™ deep dive yielded very little to help me figure all of this out.&lt;/p&gt;
+
+&lt;p&gt;If you follow me on Twitter, you may have seen my cryptic tweet after spending hours trying to get this to work:&lt;/p&gt;
+
+&lt;blockquote class=&quot;twitter-tweet&quot; data-dnt=&quot;true&quot;&gt;&lt;p lang=&quot;en&quot; dir=&quot;ltr&quot;&gt;Today... I wrote a &lt;a href=&quot;https://twitter.com/hashtag/Rails?src=hash&quot;&gt;#Rails&lt;/a&gt; script that creates a &lt;a href=&quot;https://twitter.com/hashtag/CommonJS?src=hash&quot;&gt;#CommonJS&lt;/a&gt; env with a &lt;a href=&quot;https://twitter.com/hashtag/V8?src=hash&quot;&gt;#V8&lt;/a&gt; runtime that attaches a &lt;a href=&quot;https://twitter.com/hashtag/Ruby?src=hash&amp;amp;amp&quot;&gt;#Ruby&lt;/a&gt; function, loads a &lt;a href=&quot;https://twitter.com/hashtag/Webpack?src=hash&quot;&gt;#Webpack&lt;/a&gt; bundle, requires a custom &lt;a href=&quot;https://twitter.com/hashtag/module?src=hash&quot;&gt;#module&lt;/a&gt;, and calls a &lt;a href=&quot;https://twitter.com/hashtag/javascript?src=hash&quot;&gt;#javascript&lt;/a&gt; function with the results from the Ruby function directly in the JS. 🤷🏻‍♀️&lt;br /&gt;&lt;br /&gt;How&amp;#39;s your day?&lt;/p&gt;&amp;mdash; Laura Mosher (@LauraTrev) &lt;a href=&quot;https://twitter.com/LauraTrev/status/1220839361568264203&quot;&gt;January 24, 2020&lt;/a&gt;&lt;/blockquote&gt;
+
+&lt;p&gt;Therefore, this blog post is a BehindTheTweet™ deep dive and a how-to guide so you can do this yourself. So, if you find this kind of bizarre Ruby and JavaScript interesting or you are trying to simulate the same kind of result, read on.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-problem&quot;&gt;The Problem&lt;/h3&gt;
+
+&lt;p&gt;The framework the rest of this guide follows stems directly from the requirements that I was presented with by my client. In order for everyone to have the same frame of reference, this is a brief background on the codebase and the ask.&lt;/p&gt;
+
+&lt;h4 id=&quot;the-codebase-setup&quot;&gt;The Codebase Setup&lt;/h4&gt;
+
+&lt;p&gt;The backend built with Ruby on Rails and the frontend is an Angular app. The Frontend lives in its own folder inside the root of the Rails codebase. When deployed, The frontend is compiled with Webpack into static assets and loaded into Rails via &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;lt;script&amp;gt;&lt;/code&gt; tags in the Rails application layout view file.&lt;/p&gt;
+
+&lt;h4 id=&quot;the-ask&quot;&gt;The Ask&lt;/h4&gt;
+
+&lt;p&gt;There exists a set of data that was in one format and the goal was create a script that migrated the data from that format into the new format and save it. The catch? The data was stored in the Rails database and the code to transform it and generate the format lived in the Angular code. The question of data flow was uncertain: The frontend didn’t know how to save the data and the backend had no idea how to do the transformation correctly.&lt;/p&gt;
+
+&lt;p&gt;They wanted a modular and reusable way to run data migration scripts that required Frontend code, and they wanted to keep it all in a rake task, if possible.&lt;/p&gt;
+
+&lt;h2 id=&quot;prerequisites&quot;&gt;Prerequisites&lt;/h2&gt;
+
+&lt;p&gt;Everything can be done with Ruby + a Frontend app; that said, since the code I was working in was expected to work inside the context of Rails, this guide will also be done within Rails.&lt;/p&gt;
+
+&lt;p&gt;This how-to assumes the following:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;You have Rails app Backend with at least on Model.&lt;/li&gt;
+  &lt;li&gt;You have a modern Frontend app.&lt;/li&gt;
+  &lt;li&gt;You use Webpack to compile your Frontend assets.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;setup-a-javascript-environment-in-your-rails-environment&quot;&gt;Setup a JavaScript environment in your Rails environment&lt;/h2&gt;
+
+&lt;p&gt;The first step is to get our Rails environment setup to have an internal JavaScript runtime environment.&lt;/p&gt;
+
+&lt;h3 id=&quot;install-gems&quot;&gt;Install Gems&lt;/h3&gt;
+
+&lt;p&gt;There are two gems that are needed to create a (mostly modern) V8 runtime and CommonJS environment. These will allow us to run JavaScript in our Ruby script:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# In Gemfile&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;group&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:rake&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;do&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'commonjs-mini_racer_env'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;github: &lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'tribune/commonjs-mini_racer_env'&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;gem&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'mini_racer'&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://github.com/rubyjs/mini_racer&quot;&gt;MiniRacer&lt;/a&gt; is a minimal modern embedded V8 runtime for Ruby. When coupled with &lt;a href=&quot;https://github.com/tribune/commonjs-mini_racer_env/&quot;&gt;CommonJS for Mini Racer&lt;/a&gt;, we can evaluate reusable JavaScript modules in a non-browser environment directly in Rails.&lt;/p&gt;
+
+&lt;h3 id=&quot;creating-and-running-your-script&quot;&gt;Creating and Running your Script&lt;/h3&gt;
+
+&lt;p&gt;Rails has two primary ways to run snippets of code server side, in-context of Rails: A rake task or a Ruby script with Rails &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;runner&lt;/code&gt;. I’ve found that I prefer to use the latter option for most things, unless I want to be able to reuse the code inside other Rake tasks, and for a migration of data, having a separate script felt appropriate. That said, either option will work. For the purposes of this guide, we will use the script + Rails runner pattern.&lt;/p&gt;
+
+&lt;p&gt;Lets create the shell of our script:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# in db/scripts/my-script.rb&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Hello world!&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And then run it to make sure everything is wired correctly:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-script&quot; data-lang=&quot;script&quot;&gt;$ rails runner db/scripts/my-script.rb
+=&amp;gt; Hello world!&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;initialize-the-javascript-environment&quot;&gt;Initialize the JavaScript environment&lt;/h3&gt;
+
+&lt;p&gt;Now that we’ve verified that everything runs as expected, lets setup our JavaScript environment with the two gems we installed:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# In db/scripts/my-script.rb&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'commonjs-mini_racer_env'&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Define our V8 Runtime context&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MiniRacer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# Create our JS Environment&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CommonJS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;MiniRacerEnv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;path: &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'app'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'javascripts'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;verify-your-js-environment&quot;&gt;Verify your JS environment&lt;/h4&gt;
+
+&lt;p&gt;The quickest way to see if you have a successful JS runtime is to evaluate a small bit of JavaScript code after your created JS Environment and run the script:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'1+3'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# When you run the script, you should see:&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; 4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Or recreate the “Hello world!” example, except this time with JavaScript using a multiline heredoc:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;JS&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+function hello() {
+  return 'Hello World!';
+}
+hello();
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;JS&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;js&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# When you run the script, you should see:&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#=&amp;gt; Hello World!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If you see the expected results from these examples, you’re good to go!&lt;/p&gt;
+
+&lt;h2 id=&quot;linking-ruby-functions-into-your-js-environment&quot;&gt;Linking Ruby functions into your JS environment&lt;/h2&gt;
+
+&lt;p&gt;Okay so, so far all we’ve established is that we can run JavaScript code in Rails. While neat, that’s not how I caught you with the title. I said you could call Ruby functions &lt;em&gt;from&lt;/em&gt; JavaScript. Lets do it: transform the Hello World! example to instead return Hello, &amp;lt;name&amp;gt;! where the fetched name comes from Ruby.&lt;/p&gt;
+
+&lt;h3 id=&quot;define-the-ruby-function&quot;&gt;Define the Ruby function&lt;/h3&gt;
+
+&lt;p&gt;Lets create a function that fetches a random user from the database when called.&lt;/p&gt;
+
+&lt;p&gt;Note: In order to allow synchronous calls to Ruby from JavaScript, the Ruby functions needs to be defined as a proc function.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;fetch_random_user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as_json&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;attach-it-to-the-js-runtime&quot;&gt;Attach it to the JS Runtime&lt;/h3&gt;
+
+&lt;p&gt;Now that we have our proc function, we can attach it to the JS runtime:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;attach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;Ruby.fetch_random_user&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;fetch_random_user&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This attaches our &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fetch_random_user&lt;/code&gt; ruby proc to our JS runtime at the definition &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ruby.fetch_random_user()&lt;/code&gt;. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ruby&lt;/code&gt; is optional and can be named anything you would like (or omitted entirely). I prefer to prefix my Ruby functions in the JS environment with it, or something similar, so I know that it is defined in Ruby at usage, rather than somewhere in my JS.&lt;/p&gt;
+
+&lt;h3 id=&quot;and-execute-on-it&quot;&gt;And execute on it&lt;/h3&gt;
+
+&lt;p&gt;We can now utilize the attached Ruby function directly in our JavaScript and pass the results into a JavaScript function and output the results from Ruby.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;JS&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+function hello(user) {
+  return `Hello, ${user.name}!`;
+}
+
+var user = Ruby.fetch_random_user();
+hello(user);
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;JS&lt;/span&gt;
+
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;js&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; Hello, Laura!&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;using-your-frontend-app-assets&quot;&gt;Using your Frontend app assets&lt;/h2&gt;
+
+&lt;p&gt;The previous portion showed how to run generic Ruby functions in a JavaScript runtime, with inline defined JavaScript functions defined in the Ruby script. This next section is going to show you how to you can use your Frontend assets and defined functions in that same runtime.&lt;/p&gt;
+
+&lt;h3 id=&quot;an-example-app&quot;&gt;An Example App&lt;/h3&gt;
+
+&lt;p&gt;Lets say we have a small application that does the following:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;When given a User, the program says hello to the user, like we did in the previous example, and transforms the user’s data into a special json structure for a new user Profile.&lt;/li&gt;
+  &lt;li&gt;When a user is not provided, the program should exit with a generic ‘Hello world!’ and a message stating that it cannot generate a profile.&lt;/li&gt;
+  &lt;li&gt;The format for the Profile json should look like the following:&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;profile&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Laura&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;favorites&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;animal&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hedgehog&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;color&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;teal&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;nl&quot;&gt;&quot;hobbies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;reading&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;running&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+      &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;climbing&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;create-modules&quot;&gt;Create Modules&lt;/h4&gt;
+
+&lt;p&gt;Lets create two modules, one for saying hello:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// in src/hello.js&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;`Hello, &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;${&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;!`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;helloWorld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;Hello world!&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;and one for holding the transform logic:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// in src/transform.js&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;tranform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;profile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;favorites&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;animal&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;na&quot;&gt;color&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;color&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+      &lt;span class=&quot;na&quot;&gt;hobbies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hobbies&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;JSON&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;stringify&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h4 id=&quot;create-main-application&quot;&gt;Create main application&lt;/h4&gt;
+
+&lt;p&gt;We can import those modules directly into our primary application file:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;helloWorld&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;./src/hello.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;transform&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;./src/transform.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And then create a few functions to handle our main logic:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;k&quot;&gt;export&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;greeting&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;kd&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;profile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;transformProfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;greeting&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;sayHello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;helloWorld&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hello&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;transformProfile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;===&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;undefined&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;Unable to generate Profile for this user&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;transform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;bundle-your-frontend&quot;&gt;Bundle Your Frontend&lt;/h3&gt;
+
+&lt;p&gt;For us to use our new and lovely frontend application, we need to create a Webpack bundle that we can import into our runtime. Here is a barebones example of a custom webpack configuration file:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// my-webpack.config.js&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;exports&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;target&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;         &lt;span class=&quot;c1&quot;&gt;// [1]&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;entry&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;./main.js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;na&quot;&gt;output&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;filename&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;[name].js&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;YourLibraryName&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;libraryTarget&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;umd&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// [2]&lt;/span&gt;
+    &lt;span class=&quot;na&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;path&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;resolve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;__dirname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;../public/assets&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;[1] Targetting node is important so the bundle is self-contained and can be included in our Ruby script!&lt;/p&gt;
+
+&lt;p&gt;[2] &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;umd&lt;/code&gt; stands for Universal Module Definition, and is necessary to load into our CommonJS environment.&lt;/p&gt;
+
+&lt;p&gt;Once you have your configuration setup, you can create your target library with:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-script&quot; data-lang=&quot;script&quot;&gt;webpack --config my-webpack.config.js&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This will create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;main.js&lt;/code&gt; file available in the rails &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;public/assets&lt;/code&gt; folder. It will include all of the imported bundles&lt;/p&gt;
+
+&lt;h3 id=&quot;load-your-bundle-into-the-js-environment&quot;&gt;Load your bundle into the JS Environment&lt;/h3&gt;
+
+&lt;p&gt;Using the JS environment you created in your Ruby script, you can now load your newly compiled bundle library into your runtime:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# Load your JS bundle&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'public'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'assets'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'main.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;use-your-bundled-modules&quot;&gt;Use your bundled modules&lt;/h3&gt;
+
+&lt;p&gt;Now you can use your bundled modules using CommonJS &amp;amp;&amp;amp; the Node &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;require()&lt;/code&gt; function:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;// if you want to require the full Module / Library&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;YourLibraryName&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// if you want to require just the `main` function:&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;main&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;dl&quot;&gt;'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;putting-it-all-together&quot;&gt;Putting it all together&lt;/h2&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# In db/scripts/my-script.rb&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;require&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'commonjs-mini_racer_env'&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;context&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;MiniRacer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;CommonJS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;MiniRacerEnv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;context&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;ss&quot;&gt;path: &lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'app'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'javascripts'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;load&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;Rails&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'public'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'assets'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'main.js'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;fetch_random_user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;sample&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;as_json&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;attach&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  &lt;span class=&quot;s2&quot;&gt;&quot;Ruby.fetch_random_user&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;fetch_random_user&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# successful case&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;JS&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+var YourLibraryName = require('main');
+var user = Ruby.fetch_random_user();
+YourLibraryName.main(user);
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;JS&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;js&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; Hello, Laura!&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; {&quot;profile&quot;:{&quot;name&quot;:&quot;Laura&quot;,&quot;favorites&quot;:{&quot;animal&quot;:&quot;hedgehog&quot;,&quot;color&quot;:&quot;teal&quot;},&quot;hobbies&quot;: [&quot;reading&quot;,&quot;running&quot;,&quot;climbing&quot;]}}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# unsuccessful case&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;-&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;JS&lt;/span&gt;&lt;span class=&quot;sh&quot;&gt;
+var { main } = require('main');
+main();
+&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;JS&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;puts&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;js_env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;runtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;eval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;js&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; Hello world!&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;#&amp;gt; Unable to generate Profile for this user&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h3 id=&quot;next-steps-accepting-args--saving-data&quot;&gt;Next Steps: Accepting args &amp;amp; saving data&lt;/h3&gt;
+
+&lt;p&gt;At this point, we’ve shown how you can call Ruby functions from a JS runtime context and how you can load frontend module assets into a CommonJS environment. You can take it a step further have your Ruby functions accept arguments and save data.&lt;/p&gt;
+
+&lt;p&gt;An example of how that might look:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;save_user_profile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user_profile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;User&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;find&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;user_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;profile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;user_profile&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;user&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nf&quot;&gt;save&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;notes--caveats&quot;&gt;Notes &amp;amp;&amp;amp; Caveats&lt;/h2&gt;
+
+&lt;p&gt;Like all solutions, your mileage may vary. A few known caveats based on my testing:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;This method does not work if you need access to the window or dom.  This ultimately was why this solution did not work for my client.&lt;/li&gt;
+  &lt;li&gt;Why not ExecJS or TheRubyRacer? I ruled out both relatively early on. You can use ExecJS for JS runtime without the need for bundled JS assets. TheRubyRacer’s V8 runtime is old and misses a lot of the niceties we’ve come to know and love and rely on (Like promises!). You can use it if you don’t need anything beyond V8 version 3. If you are able to use TRR, you can also use the default CommonJS gem (and not the one specifically ported for MiniRacer!&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;good-luck-and-have-fun&quot;&gt;Good luck and have fun!&lt;/h2&gt;
+
+&lt;p&gt;I hope you enjoyed this forary into Ruby inside JavaScript.&lt;/p&gt;</content><author><name></name></author><summary type="html">Learn how to embed a JavaScript runtime in Ruby and execute both compiled frontend JavaScript and direct Ruby functions directly in that embedded JS runtime.</summary></entry><entry><title type="html">Into the Unknown</title><link href="http://localhost:4000/blog/2019/12/20/into-the-unknown.html" rel="alternate" type="text/html" title="Into the Unknown" /><published>2019-12-20T16:00:00-05:00</published><updated>2019-12-20T16:00:00-05:00</updated><id>http://localhost:4000/blog/2019/12/20/into-the-unknown</id><content type="html" xml:base="http://localhost:4000/blog/2019/12/20/into-the-unknown.html">&lt;p&gt;As 2019 wraps up, I am sitting with the wild ride that this year has been.&lt;/p&gt;
 
 &lt;p&gt;Before January had even completed, life threw two curveballs at me: my mom was diagnosed with cancer (AML) and my hedgehog of almost 6 years passed away. In the same week. I chalked it up to the worst week of my life and assumed that it would be a while before anything topped that.&lt;/p&gt;
 
@@ -397,14 +757,4 @@ animals = Animals.new(animal_array).animal_list
   1 =&amp;gt; #&amp;lt;Animal:0x007fde935ce440 @id=1, @name=&quot;Misha&quot;&amp;gt;,
   2 =&amp;gt; #&amp;lt;Animal:0x007fde935ce418 @id=2, @name=&quot;Leokk&quot;&amp;gt;,
   3 =&amp;gt; #&amp;lt;Animal:0x007fde935ce3f0 @id=3, @name=&quot;Huffer&quot;&amp;gt;
-}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Learn about Ruby's ability to create hash lookups from Collections.</summary></entry><entry><title type="html">Understanding Depression</title><link href="http://localhost:4000/blog/2012/12/11/understanding-depression.html" rel="alternate" type="text/html" title="Understanding Depression" /><published>2012-12-11T06:15:15-05:00</published><updated>2012-12-11T06:15:15-05:00</updated><id>http://localhost:4000/blog/2012/12/11/understanding-depression</id><content type="html" xml:base="http://localhost:4000/blog/2012/12/11/understanding-depression.html">&lt;p&gt;At the surface, we’ve all experienced some basic depression - feeling of sadness, unhappy at something, miserable, or just plain down. This level of depression is usually a very short period of time and tends to go away if you find a hobby or a friend to cheer you up. Within a week or two, you’ve moved on. There may be a small sadness, but you aren’t necessarily feeling depressed about it anymore. This type of depression is what the average user thinks of when someone says they are depressed, and thus it’s easy to assume that they can just brush it aside since it will simply get better with a little bit of time.&lt;/p&gt;
-
-&lt;p&gt;Below the surface, the feelings of the surface depression are warped and distorted. So now instead of a feeling of sadness, it’s a feeling of constant foreboding. Instead of being miserable, you feel like the world is going to end. Instead of feeling down, you feel like you’re in a deep hole and someone just covered the one light source. People in this stage tend to view the entire world in a negative light.&lt;/p&gt;
-
-&lt;p&gt;Just below the surface, it’s easy to act like nothing is wrong while internally there is a storm brewing. And one that left unchecked will eventually grow until “breaking point” where things that normally make them happy end up looking and sounding terrible; things that normally would be a funny joke are taken like an insult or source of anxiety and feeling of helplessness; things that normally would be a soft reprimand is now a full blown feeling of failure or inability to perform. All of these things only fuel the downward spiral.&lt;/p&gt;
-
-&lt;p&gt;However, the closer someone gets to the bottom of the spiral, the harder it is to function normally - to act like things are OK when they are not. It takes twice as long to do anything.  It takes effort to even eat. Trying to get up out of depression is usually met with frustration (especially those who need medication or someone to help root out the real cause of the depression), because they can’t do it themselves creating a viscous cycle.&lt;/p&gt;
-
-&lt;p&gt;People with this severe of depression have what I’ve called a ghost in their eyes. They see and feel things that we on the outside can’t see. They look, to the average person, normal. But on a closer inspection that isn’t really the case. You’ll notice they aren’t eating, they aren’t getting enough sleep. You’ll notice they have a rasp in their voice and a hard time looking at people in the eye when talking to someone.&lt;/p&gt;
-
-&lt;p&gt;Once depression reaches this point, the previous expectations and experiences with how a person acted are no longer relevant. Their reaction to the things we say or do will be exactly the opposite of what we expect.&lt;/p&gt;</content><author><name></name></author><summary type="html">The spiral of depression is brutal. Take a quick look below the surface of perceived depression.</summary></entry></feed>
+}&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</content><author><name></name></author><summary type="html">Learn about Ruby's ability to create hash lookups from Collections.</summary></entry></feed>
