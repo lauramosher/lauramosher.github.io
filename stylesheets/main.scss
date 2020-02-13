@@ -1,10 +1,14 @@
 ---
 ---
 
-$background: #fdfffc;
+$soft-white: #fdfffc;
+$deep-blue: #085e72;
+
+$background: $soft-white;
 $text: #0a2342;
 $header: #0a2342;
-$links: #2ec4b6;
+$links: #0a718a;
+
 
 @import url('https://fonts.googleapis.com/css?family=Oswald|Roboto');
 @import "base";
