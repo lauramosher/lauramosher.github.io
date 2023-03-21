@@ -1,0 +1,53 @@
+{{ define "main" }}
+  <article class="posts">
+    <h1>{{ .Title }}</h1>
+    <div>
+      <aside>
+        <section class="categories">
+          <h4>Categories</h4>
+          <ul class="category-list">
+            {{ range site.Taxonomies.categories.Alphabetical }}
+              <li class="category-list-item">
+                  <a class="category-list-item-title" href="{{ .Page.Permalink }}">
+                    ({{ .Count }})
+                    {{ .Page.Title }}
+                  </a>
+              </li>
+            {{ end }}
+          </ul>
+        </section>
+
+        <section class="tags">
+          <h4>Tags</h4>
+          <ul class="category-list">
+            {{ range site.Taxonomies.tags.Alphabetical }}
+              <li class="category-list-item">
+                  {{ partial "icon.html" (dict "ctx" $ "name" "tag") }}
+                  <a class="category-list-item-title" href="{{ .Page.Permalink }}">
+                    {{ .Page.Title }}
+                  </a>
+              </li>
+            {{ end }}
+          </ul>
+        </section>
+      </aside>
+      <div>
+      <ul class="posts-list">
+        {{ range where .Paginator.Pages "Type" "!=" "page" }}
+          <li class="posts-list-item">
+            <a class="posts-list-item-title" href="{{ .Permalink }}">{{ .Title }}</a>
+            <span class="posts-list-item-description">
+              {{ partial "icon.html" (dict "ctx" $ "name" "calendar") }}
+              {{ .PublishDate.Format "Jan 2, 2006" }}
+              <span class="posts-list-item-separator">-</span>
+              {{ partial "icon.html" (dict "ctx" $ "name" "clock") }}
+              {{ .ReadingTime }} min read
+            </span>
+          </li>
+        {{ end }}
+      </ul>
+      {{ partial "pagination.html" $ }}
+    </div>
+    </div>
+  </article>
+{{ end }}

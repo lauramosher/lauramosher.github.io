@@ -1,3 +1,46 @@
 baseURL = 'http://example.org/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Laura Mosher'
+theme = ["hugo-embed-pdf-shortcode", "m10c"]
+enableInlineShortcodes = true
+
+[[menu.main]]
+  identifier = "About"
+  name = "About"
+  url = "/"
+
+[[menu.main]]
+  identifier = "Resume"
+  name = "Resume"
+  url = "/resume"
+
+[[menu.main]]
+  identifier = "Blog"
+  name = "Blog"
+  url = "/posts"
+
+[params]
+  author = 'Laura Mosher'
+  description = 'Software Engineer, Climber, Traveler, and Nomad.'
+  avatar = 'laura-speaking.jpeg'
+
+[params.style]
+  darkestColor = "#023047"
+  darkColor = "#021927"
+  primaryColor = "#fb8500"
+
+[[params.social]]
+  icon = "github"
+  name = "Github"
+  url = "https://github.com/lauramosher"
+[[params.social]]
+  icon = 'linkedin'
+  name = 'LinkedIn'
+  url = 'https://www.linkedin.com/in/lauramosher/'
+
+[markup]
+  [markup.goldmark.renderer]
+    unsafe=true
+
+[permalinks]
+  posts = '/posts/:year/:month/:title/'
