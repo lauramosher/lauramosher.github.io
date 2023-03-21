@@ -28,7 +28,7 @@ Therefore, this blog post is a BehindTheTweet™ deep dive and a how-to guide so
 The framework the rest of this guide follows stems directly from the requirements that I was presented with by my client. In order for everyone to have the same frame of reference, this is a brief background on the codebase and the ask.
 
 ### The Codebase Setup
-The backend built with Ruby on Rails and the frontend is an Angular app. The Frontend lives in its own folder inside the root of the Rails codebase. When deployed, The frontend is compiled with Webpack into static assets and loaded into Rails via <script> tags in the Rails application layout view file.
+The backend built with Ruby on Rails and the frontend is an Angular app. The Frontend lives in its own folder inside the root of the Rails codebase. When deployed, The frontend is compiled with Webpack into static assets and loaded into Rails via `<script>` tags in the Rails application layout view file.
 
 ### The Ask
 There exists a set of data that was in one format and the goal was create a script that migrated the data from that format into the new format and save it. The catch? The data was stored in the Rails database and the code to transform it and generate the format lived in the Angular code. The question of data flow was uncertain: The frontend didn’t know how to save the data and the backend had no idea how to do the transformation correctly.
